@@ -1,0 +1,32 @@
+.main_menu_div, .page_menu_div  {
+	border: 1px solid #b3b3b3;
+	display: flex;
+	justify-content: space-between;
+	height: 40px;
+}
+
+.main_menu_div {
+	margin: 5px 5px 5px 5px;
+}
+
+.page_menu_div {
+	margin: 0px 5px 5px 5px;
+}
+
+.mml, .mmr, .pml, .pmr {
+	display: flex;
+	align-items: center;
+}
+
+.mml, .pml {
+	justify-content: left;
+}
+
+.mmr, .pmr {
+	justify-content: right;
+}
+
+.mml a, .mmr a {
+	margin: auto;
+	margin: 0 20px;
+}

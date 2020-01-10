@@ -1,0 +1,61 @@
+        <!--main menu left-->
+        <div class="mml">
+          
+          <!--ireps honme-->
+          <div>
+            <a href="{{ url_for('unp_profile') }}">ireps</a>
+          </div>
+          
+          <!--dashboard-->
+          <div>
+            <a href="{{ url_for('unp_profile') }}">dbd</a>
+          </div>
+          
+          <!--assets-->
+          <div>
+            <a href="{{ url_for('unp_profile') }}">asts</a>
+          </div>
+          
+          <!--transactions-->
+          <div>
+            <a href="{{ url_for('unp_profile') }}">trns</a>
+          </div>
+          
+          
+        
+        </div>
+        
+        <!--main menu right-->
+        <div class="mmr">
+        
+          <!--knowledge base-->
+          <div>
+            <a href="{{ url_for('unp_profile') }}">knowledge base</a>
+          </div>
+          
+          <!--admin-->
+          <div>
+            <a href="{{ url_for('unp_profile') }}">admin</a>
+          </div>
+        
+          <!--sign up (register)-->
+          <div>
+            <a href="{{ url_for('unp_profile') }}">sign up</a>
+          </div>
+          
+          <!--sign in (login)-->
+          <div>
+            <a href="{{ url_for('unp_profile') }}">sign in</a>
+          </div>
+          
+        </div>
+        
+        <!--{% if current_user.is_authenticated %}-->
+        
+                      <li><a href="{{ url_for('assets', arc_code='bk') }}">kiosks/boxes</a> </li>
+              <li><a href="{{ url_for('assets', arc_code='em') }}">electricity meters</a> </li>
+              <li><a href="{{ url_for('assets', arc_code='wm') }}">water meters</a> </li>
+              <li><a href="{{ url_for('assets', arc_code='pl') }}">poles</a> </li>
+              <li><a href="{{ url_for('assets', arc_code='tr') }}">transformers</a> </li>
+              <li><a href="{{ url_for('assets', arc_code='cl') }}">cables</a> </li>
+              <li><a href="{{ url_for('assets', arc_code='cb') }}">circuit breakers</a> </li>

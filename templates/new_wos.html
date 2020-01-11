@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %} new wos {% endblock %}
+
+{% block fn %}
+    <p class="ifilename" id="ifilename">{{ filename }}</p>
+    <p class="new_wos_json_str" id="new_wos_json_str">{{ new_wos_json_str }}</p>
+    <p class="validation_data" id="validation_data">{{ validation_data }}</p>
+{% endblock fn %}
+
+
+
+{% block dt %}
+    <table class="new_wos_class" id="ireps_dt" style="width: 100%;"></table>
+{% endblock dt %}
+
+{% block dt_modal %}
+<!-- Modal -->
+{% endblock dt_modal %}
+
+
+

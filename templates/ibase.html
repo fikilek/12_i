@@ -1,0 +1,302 @@
+{% extends 'base.html' %}
+
+{% from "ireps_macros.html" import itf_section %}
+{% from "ireps_macros.html" import itf_signature %}
+{% from "ireps_macros.html" import itf_ema %}
+
+
+
+
+    <!--content div-->
+    {% block content %}
+    <div class="div-mb">
+  
+      <!-- filename block-->
+      {% block fn %}
+      {% endblock fn %}
+  
+      <!-- asset register category code block-->
+      {% block ac %}
+      {% endblock ac %}
+  
+      <!-- transaction name code block-->
+      {% block trn_code %}
+      {% endblock trn_code %}
+  
+      <!-- datatable block-->
+      {% block dt %}
+      {% endblock dt %}
+
+    </div>
+    {% endblock content %}
+ 
+    {% block dt_modal %}
+      {# trn form modal - launched from tns------------------------------------------------------------------------------#}
+      <div class="modal fade" id="trn-form-modal" tabindex="-1" role="dialog"
+           aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="itf-header">
+              <div class="modal-header">
+                <div class="itf-row-h2">
+                    <div class="itf-data-field" id="itf-form-id">tns-id</div>
+                    <div class="itf-data-field" id="itf-datetime">
+                        <div>
+                          <select name=""><option value="">select an option</option></select>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="itf-row-h2">
+                  <div class="itf-data-field" id="itf-tns-id"></div>
+                </div>
+                <div class="itf-row-h2">
+                    <div class="itf-data-field" id="itf-arc-asset-no">arc / asset no</div>
+                </div>
+              </div>
+              <div class="modal-header itf-row itf-row-h1">
+                <div class="d-flex">
+                  <div class="itf-row-h2 itf-data-field" >
+                    <button id="ift-arrangement-menu-btn" class="ift-menu-btn"
+                            title="click this button to make an visit arrangement with a customer" >
+                      <span>
+                        <!--arrangement-->
+                        <i class="far fa-hand-point-right"></i>
+                      </span>
+                    </button>
+                  </div>
+                  <div class="itf-row-h2 itf-data-field" >
+                    <button id="ift-qa-pending-menu-btn" class="ift-menu-btn ift-qa-btn"
+                            title="click this button to INITIATE a qa process" >
+                      <span>
+                        <!--qa pending-->
+                        <i class="fas fa-pause"></i>
+                      </span>
+                    </button>
+                  </div>
+                  <div class="itf-row-h2 itf-data-field" >
+                    <button id="ift-qa-fail-menu-btn" class="ift-menu-btn ift-qa-btn"
+                            title="click this button to FAIL a transaction" >
+                      <span>
+                        <!--qa fail-->
+                        <i class="far fa-thumbs-down"></i>
+                      </span>
+                    </button>
+                  </div>
+                  <div class="itf-row-h2 itf-data-field" >
+                    <button id="ift-qa-pass-menu-btn" class="ift-menu-btn ift-qa-btn"
+                            title="click this button to PASS a transaction" >
+                      <span>
+                        <!--qa pass-->
+                        <i class="far fa-thumbs-up"></i>
+                      </span>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="itf-data-field" id="itf-trn-name">trn</div>
+                <div class="itf-row-h2 itf-data-field" id="itf-form-state">Form State</div>
+              </div>
+            </div>
+  
+            <div class="modal-body">
+              <form method="POST" action="/process_trn_form"  id="trn-form" enctype="multipart/form-data" class="form-horizontal">
+                {{ form.hidden_tag() }}
+                <div id="accordion">
+                  <!--map section-->
+                  <div class="card">
+                    <div class="card-header">
+                      <a class="card-link" data-toggle="collapse" href="#collapseOne">
+                        <h6>GPS location where form was completed</h6>
+                      </a>
+                    </div>
+                    <div id="collapseOne" class="collapse" data-parent="#accordion">
+                      <div class="card-body">
+                          <div class="itf_section_header" id="itf_section_map">
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--tns section-->
+                  {{ itf_section('tns', 'tns') }}
+                  <!--A section-->
+                  {{ itf_section('a', 'Customer Details - Natural Person') }}
+                  <!--B section-->
+                  {{ itf_section('b', 'Customer Details - Juristic Person') }}
+                  <!--C section-->
+                  {{ itf_section('c', 'Customer Address') }}
+                  <!--D section-->
+                  {{ itf_section('d', 'Asset Address') }}
+                  <!--E section-->
+                  {{ itf_section('e', 'Asset Technical Details') }}
+                  <!--F section-->
+                  {{ itf_section('f', 'Asset Finance Details') }}
+                  <!--G section-->
+                  {{ itf_section('g', 'Asset Pre-paid Billing') }}
+                  <!--H section-->
+                  {{ itf_section('h', 'Asset Conventional Billing') }}
+                  <!--I section-->
+                  {{ itf_ema('i', 'Electricity Meter Audit') }}
+                  <!--Z section-->
+                  {{ itf_signature('z', 'Signatures') }}
+                </div>
+              
+                <div class="form-group modal-form-btns" id="itf_section_bottom">
+                  <input type="button" class="btn btn-secondary" data-dismiss="modal" value="Cancel">
+                  <input type="reset" class="btn btn-outline-warning" id="trn-reset-btn" value="Reset">
+                  <input type="submit" class="btn btn-primary" id="trn-submit-btn">
+                </div>
+  
+                </form>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      {# new wos modal --------------------------------------------------------------------------------------------------#}
+      <div class="modal fade" id="new-wos-modal" tabindex="-1" role="dialog"
+           aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="wos-modal-label">Add new wos</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div>
+                <form method="POST" action="/new_wos/form" id="new-wos-form" enctype="multipart/form-data">
+                  {{ form.hidden_tag() }}
+                  <div class="form-group">
+                    <input type="hidden" class="form-control" id="wos-id" name="wos_id" value="">
+                  </div>
+                  <div class="form-group">
+                    <label for="wos-created-on" class="form-control-label">created on</label>
+                    <input type="text" class="form-control" id="wos-created-on" name="wos_created_on" value="">
+                  </div>
+                  <div class="form-group">
+                    <label for="wos-arc" class="form-control-label">asset category</label>
+                    <input type="text" class="form-control" id="wos-arc" name="wos_arc" value="">
+                  </div>
+                  <div class="form-group" id="wos-trn-select">
+                    <label for="wos-trn" class="form-control-label">transaction name</label>
+                    <select id="wos-trn" class="form-control" name="wos_trn"><option value="">select an option</option></select>
+                  </div>
+                  <div class="form-group">
+                    <label for="wos-file" class="form-control-label">wos selected file</label>
+                    <input type="file" id="wos-file" class="form-control" name="wos_file" value="" accept=".csv">
+                  </div>
+                  <div class="form-group">
+                    <label for="wos-created-by" class="form-control-label">created by</label>
+                    <input type="text" class="form-control" id="wos-created-by" name="wos_created_by" value="">
+                  </div>
+                  <div class="form-group modal-form-btns">
+                    <input type="button" class="btn btn-secondary" data-dismiss="modal" value="Cancel">
+                    <input type="reset" class="btn btn-outline-warning" id="new-wos-reset-btn" value="Reset">
+                    <input type="submit" class="btn btn-primary" id="new-wos-submit-btn">
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      {# new trn modal - launched fro m assets---------------------------------------------------------------------------#}
+      <div class="modal fade" id="new-trn-modal" tabindex="-1" role="dialog"
+           aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="trn-modal-label"></h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div>
+                <form method="POST" action="/new_tns" id="new-trn-form" enctype="multipart/form-data">
+                  {{ form.hidden_tag() }}
+                  <div class="form-group">
+                    <input type="hidden" class="form-control" id="trn-asr-id" name="trn_asr_id" value="">
+                  </div>
+                  <div class="form-group">
+                    <label for="trn-created-on" class="form-control-label">created on</label>
+                    <input type="text" class="form-control" id="trn-created-on" name="trn_created_on" value="">
+                  </div>
+                  <div class="form-group">
+                    <label for="trn-arc" class="form-control-label">asset category</label>
+                    <input type="text" class="form-control" id="trn-arc" name="trn_arc" value="">
+                  </div>
+                  <div class="form-group">
+                    <label for="trn-sst" class="form-control-label">asset state</label>
+                    <input type="text" class="form-control" id="trn-sst" name="trn_sst" value="">
+                  </div>
+                  <div class="form-group" id="trn-select">
+                    <label for="trn-name" class="form-control-label">transaction name</label>
+                    <select id="trn-name" class="form-control" name="trn_name"><option value="">select an option</option></select>
+                  </div>
+                  <div class="form-group">
+                    <label for="trn-created-by" class="form-control-label">created by</label>
+                    <input type="text" class="form-control" id="trn-created-by" name="trn_created_by" value="">
+                  </div>
+                  <div class="form-group modal-form-btns">
+                    <input type="button" class="btn btn-secondary" data-dismiss="modal" value="Cancel">
+                    <input type="submit" class="btn btn-primary" id="new-trn-submit-btn">
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      {# trn image modal - launched fro m assets---------------------------------------------------------------------------#}
+      <div class="modal fade" id="trn-image-modal" tabindex="-1" role="dialog"
+           aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="trn-image-modal-label">trn image modal</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <h1>trn image modal</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endblock dt_modal %}
+
+    {% block scripts %}
+      
+      {{ super() }}
+
+      <!-- datatables JS -->
+      <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+      <!-- signature pad JS -->
+      <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
+  
+  
+      <script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+      <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
+  
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+      <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+      <script src="https://cdn.datatables.net/select/1.3.0/js/dataTables.select.min.js"></script>
+  
+      <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+      <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+      
+      <!--fixed header-->
+      <script type="text/javascript" src="https://cdn.datatables.net/fixedheader/3.1.6/js/dataTables.fixedHeader.js"></script>
+      
+      <!--ireps.dt.js-->
+      <script src="{{ url_for('static', filename='scripts/ireps.dt.js') }}" ></script>
+
+    {% endblock scripts %}

@@ -1,0 +1,196 @@
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border0-box;
+  box-sizing: border0-box; }
+
+ul {
+  background: white; }
+
+/* start navbar (main menu)-------------------------------------------------------------------------------------------------------*/
+.main_menu_div, .page_menu_div {
+  border: 1px solid #b3b3b3;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  height: 40px;
+  z-index: 10;
+  width: 100%;
+  background: white; }
+
+.mml, .mmr, .pml, .pmr {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center; }
+
+.mml, .pml {
+  -webkit-box-pack: left;
+  -ms-flex-pack: left;
+  justify-content: left; }
+
+.mmr, .pmr {
+  -webkit-box-pack: right;
+  -ms-flex-pack: right;
+  justify-content: right; }
+
+ul.mm {
+  margin-bottom: 0; }
+
+.div-mml ul {
+  padding: 0px; }
+
+div.div-mm ul {
+  margin: 0;
+  padding: 0; }
+
+ul.mm, ul.mmr, ul.sub1, ul.sub2 {
+  list-style-type: none;
+  font-size: 9pt; }
+
+ul.mm li {
+  width: 140px;
+  text-align: center;
+  position: relative;
+  float: left;
+  margin: 4px;
+  color: green; }
+
+ul.mm a {
+  text-decoration: none;
+  display: block;
+  width: 140px;
+  height: 25px;
+  line-height: 25px;
+  background-color: #FFF;
+  border: 1px solid #CCC;
+  border-radius: 5px; }
+
+ul.mm .sub1 a {
+  margin-top: 5px; }
+
+ul.mm .sub2 a {
+  margin-left: 5px; }
+
+ul.mm li:hover > a {
+  background-color: #CFC; }
+
+ul.mm li:hover a:hover {
+  background-color: #FF0; }
+
+ul.mm ul.sub1 {
+  display: none;
+  position: absolute;
+  top: 25px;
+  left: 0px; }
+
+ul.mm ul.sub2 {
+  display: none;
+  position: absolute;
+  top: 0px;
+  left: 140px; }
+
+ul.mm li:hover .sub1 {
+  display: block; }
+
+ul.mm .sub1 li:hover .sub2 {
+  display: block; }
+
+.darrow {
+  font-size: 11pt;
+  position: absolute;
+  top: 3px;
+  right: 4px; }
+
+.rarrow {
+  font-size: 19pt;
+  position: absolute;
+  top: 0px;
+  right: 4px; }
+
+/* END navbar ---------------------------------------------------------------------------------------------------------*/
+/* start flash --------------------------------------------------------------------------------------------------------*/
+.div-flash {
+  width: 100%;
+  margin: 2px; }
+
+.div-flash .alert {
+  margin-bottom: 0px; }
+
+/* END flash ----------------------------------------------------------------------------------------------------------*/
+/* START main block----------------------------------------------------------------------------------------------------*/
+.mb {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%; }
+
+.mbl, .mbr {
+  height: auto;
+  width: 50%;
+  margin: 2px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column; }
+
+.mbl {
+  border: 1px solid #CCC;
+  border-radius: 5px; }
+
+.mbr-top, .mbr-bottom {
+  height: 50%;
+  border: 1px solid #CCC;
+  border-radius: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex; }
+
+.mbr-top-content, .mbr-bottom-content, .mbl-content {
+  margin: auto; }
+
+/* END main block----------------------------------------------------------------------------------------------------- */
+/* start forms --------------------------------------------------------------------------------------------------------*/
+.ireps-flex-center {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: auto;
+  border: 1px solid #CCC;
+  border-radius: 20px; }
+
+.ireps-form {
+  width: 500px;
+  height: auto;
+  margin: 20px;
+  border: 1px solid #CCC;
+  border-radius: 15px;
+  padding: 20px; }
+  .ireps-form legend {
+    font-size: 20px; }
+
+.ireps-box {
+  width: 500px;
+  margin: 20px;
+  border: 1px solid #CCC;
+  padding: 20px;
+  border-radius: 15px;
+  height: auto; }
+
+.ireps-form-image {
+  background-image: url("../images/tablet2.jpg");
+  background-repeat: no-repeat;
+  background-size: cover; }
+
+.ireps-form-info-text {
+  color: blue; }
+
+/* END forms ----------------------------------------------------------------------------------------------------------*/

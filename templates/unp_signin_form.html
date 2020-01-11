@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}signin form{% endblock %}
+
+{% block content %}
+<div class="ireps-flex-center">
+    <div class="ireps-form ireps-form-image ">
+        <p>This is the iREPS user logon form. To logon on, the user enters email adr and password and sign in.</p>
+        <P>If user cannot remember password, no problem, click on the <a class="ml-2" href="{{ url_for('unp_pwd_reset', email='') }}">Password reset</a> link. This will start a process
+        get a new user password.</p>
+        <br>
+        <br>
+        <p>If user cannot remember email adr used to register, no problem, simply send an
+            email to iREPS admin (admin@innopen.co.za)</P>
+    </div>
+    <div class="ireps-form">
+        <!--<form action="{{ url_for('unp_signin') }}" method="post" novalidate >-->
+        <form  method="post" novalidate >
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">User Signin Form</legend>
+                <div class="form-group">
+                    {{ form.email.label(class="form-control-label") }}
+                    {% if form.email.errors %}
+                        {{ form.email(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.email.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.email(class="form-control form-control-lg", autofocus="true") }}
+                    {% endif %}
+
+                    {{ form.password.label(class="form-control-label") }}
+                    {% if form.password.errors %}
+                        {{ form.password(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.password.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.password(class="form-control form-control-lg") }}
+                    {% endif %}
+
+                </div>
+                <div class="form-check">
+                    {{ form.remember(class="form-check-input") }}
+                    {{ form.remember.label(class="form-check-label") }}
+                </div>
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
+        <div class="border-top pt-3 ireps-flex-space-between">
+          <div>
+             <small class="text-muted">
+                Need An Account? <a class="ml-2" href="{{ url_for('unp_email_signup') }}">Sign Up Now (Register)  </a>
+            </small>
+          </div>
+          <div>
+            <small class="text-muted">
+                Forgot password? <a class="ml-2" href="{{ url_for('unp_pwd_reset_email') }}">Password Reset</a>
+            </small>
+          </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

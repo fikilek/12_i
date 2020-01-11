@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} {% endblock %}</title>
+    <!--ireps icon-->
+    <link rel="icon" href="{{ url_for('static', filename='images/images.png') }}" type="image/x-icon">
+    <!--fontawesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!--Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
+    <!--datatables css-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+    <!--date range picker-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <!--fixed header-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedheader/3.1.6/css/fixedHeader.dataTables.css"/>
+    <!--ireps css-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ireps.css') }}">
+</head>
+<body>
+
+    <!--main menu navbar (mm) -->
+    {% block navbar %}
+    <div class="main_menu_div" id="main_menu_div-mm">
+      
+      <!--todo: make the mml and mmr responsive. try using grid.-->
+  
+      <ul class="mm mml">
+        <li id="li_ireps-logo"><a id="a_ireps-logo" href="{{ url_for('index') }}">iREPS</a></li>
+        
+        {% if current_user.is_authenticated %}
+        <li><a href = "#">dashboard</a><span class="darrow">&#9660</span>
+          <ul class="sub1">
+              <li><a href="#">assets</a> </li>
+              <li><a href="#">transactions</a> </li>
+              <li><a href="#">erfs</a> </li>
+          </ul>
+        </li>
+        <li><a href = "#">assets</a><span class="darrow">&#9660</span>
+          <ul class="sub1">
+            <li><a href="">kiosks/boxes</a> </li>
+            <li><a href="">electricity meters</a> </li>
+            <li><a href="">poles</a> </li>
+            <li><a href="">transformers</a> </li>
+            <li><a href="">cables</a> </li>
+            <li><a href="">circuit breakers</a> </li>
+          </ul>
+        </li>
+        <li><a href="{{ url_for('tns') }}">transactions</a><span class="darrow">&#9660</span>
+          <ul class="sub1">
+              <li><a href="#">kiosk/box</a><span class="rarrow">&#9656</span>
+                <ul class="sub2">
+                  <li><a href="#">installation</a></li>
+                  <li><a href="#">commissioning</a></li>
+                  <li><a href="#">maintenance</a></li>
+                </ul>
+              </li>
+              <li><a href="#">electricity meters</a><span class="rarrow">&#9656</span>
+                <ul class="sub2">
+                  <li><a href="#">installation</a></li>
+                  <li><a href="#">commissioning</a></li>
+                  <li><a href="#">maintenance</a></li>
+                  <li><a href="#">meter_reading</a></li>
+                  <li><a href="#">meter_audit</a></li>
+                  <li><a href="#">fwn</a></li>
+                  <li><a href="#">dcn</a></li>
+                  <li><a href="#">rcn</a></li>
+                </ul>
+              </li>
+              <li><a href="#">pole</a><span class="rarrow">&#9656</span>
+                <ul class="sub2">
+                  <li><a href="#">installation</a></li>
+                  <li><a href="#">commissioning</a></li>
+                  <li><a href="#">maintenance</a></li>
+                </ul>
+              </li>
+              <li><a href="#">transformer</a><span class="rarrow">&#9656</span>
+                <ul class="sub2">
+                  <li><a href="#">installation</a></li>
+                  <li><a href="#">commissioning</a></li>
+                  <li><a href="#">maintenance</a></li>
+                </ul>
+              </li>
+            </ul>
+        </li>
+        {% endif %}
+      </ul>
+
+      <ul class="mm mmr">
+        <li><a href = "#">training</a></li>
+
+        {% if current_user.is_authenticated %}
+          <li><a href = "#">admin</a><span class="darrow">&#9660</span>
+            <ul class="sub1">
+              <li><a href="#">system tables</a><span class="rarrow">&#9656</span>
+                <ul class="sub2">
+                  <li><a href="#">trn Names</a> </li>
+                  <li><a href="#">trn States</a> </li>
+                  <li><a href="#">table of tables</a></li>
+                </ul>
+              </li>
+              <li><a href="#">users</a></li>
+              <li><a href="#">cadastral</a></li>
+              <li><a href="#">mobile devices</a></li>
+              <li><a href="#">simcards</a></li>
+              <li><a href="#">user roles</a></li>
+              <li><a href="#">permissions</a></li>
+              <li><a href="#">communication</a><span class="rarrow">&#9656</span>
+                <ul class="sub2">
+                  <li><a href="#">SMS/WhatsApp</a> </li>
+                  <li><a href="#">Emails</a> </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        {% else %}
+            <li><a href = "{{ url_for('unp_email_signup') }}">sign up</a></li>
+        {% endif %}
+  
+        {% if current_user.is_authenticated %}
+            <li><a href = "{{ url_for('unp_signout') }}">User:{{ current_user.unp_a01_id }}
+                </a><span class="darrow">&#9660</span>
+        {% else %}
+            <li><a href = "{{ url_for('unp_signin') }}">sign in</a>
+        {% endif %}
+
+        {% if current_user.is_authenticated %}
+        <ul class="sub1">
+          <li><a href = "{{ url_for('unp_signout') }}">sign out</a>
+          <li><a href = "{{ url_for('unp_profile') }}">profile</a></li>
+        </ul>
+        {% endif %}
+      </ul>
+      
+    </div>
+    {% endblock navbar %}
+    
+    <!--page menu (pgm)-->
+    <div id="page_menu_div" class="page_menu_div">
+
+      <!--page menu left-->
+      <div id="pml" class="pml">
+        
+        <!--unp unp_pml_btn_title-->
+        <div>
+          <button id="pgm_page_title" type="button" class="unp_pml_btn_title btn btn-sm pgm_title_btn" title="user profile">
+            user profile <span class="badge badge-light pgm_title_user_acc_id" title="unique user acc id">4</span>
+          </button>
+        </div>
+
+        <!--unp unp_pml_btn_daterange-->
+        <div>
+          <button
+              id="pgm_daterange"
+              class=""
+              data-toggle="tooltip"
+              title="date range">
+              &nbsp
+              <i class="far fa-calendar-alt"></i>
+              &nbsp
+              <span></span>
+              &nbsp
+              <i class="fa fa-caret-down"></i>
+              &nbsp
+          </button>
+        </div>
+        
+        <!--unp unp_pml_btn_edit-->
+        <div>
+          <button id="pgm_edit" class="unp_menu_btn" title="edit profile">
+            <i class="fas fa-edit unp_fa_icon"></i>
+          </button>
+        </div>
+
+        <!--unp unp_pml_btn_cancel-->
+        <div>
+          <button id="pgm_cancel" class="unp_menu_btn" title="cancel">
+            <i class="fas fa-window-close unp_fa_icon"></i>
+          </button>
+        </div>
+
+        <!--unp unp_pml_btn_save-->
+        <div>
+          <button id="pgm_save" class="unp_menu_btn" title="save">
+            <i class="fas fa-save unp_fa_icon"></i>
+          </button>
+        </div>
+        
+      </div>
+
+      <div id="pmr" class="pmr">
+      <!--page menu right-->
+        
+        <!--unp unp_pmr_btn_copy-->
+        <div>
+          <button id="pgm_copy" class="unp_menu_btn" title="copy content to clipboard">
+              <i class="fas fa-copy unp_fa_icon"></i>
+          </button>
+        </div>
+        
+        <!--unp unp_pmr_btn_excel-->
+        <div>
+          <button id="pgm_excel" class="unp_menu_btn" title="download to excel file">
+              <i class="fas fa-file-excel unp_fa_icon"></i>
+          </button>
+        </div>
+        
+        <!--unp unp_pmr_btn_pdf-->
+        <div>
+          <button id="pgm_pdf" class="unp_menu_btn" title="download to pdf">
+              <i class="fas fa-file-pdf unp_fa_icon"></i>
+          </button>
+        </div>
+        
+        <!--unp unp_pmr_btn_csv-->
+        <div>
+          <button id="pgm_csv" class="unp_menu_btn" title="download to csv">
+              <i class="fas fa-file-csv unp_fa_icon"></i>
+          </button>
+        </div>
+        
+        <!--unp unp_pmr_btn_print-->
+        <div>
+          <button id="pgm_print" class="unp_menu_btn" title="sent content to a printer">
+              <i class="fas fa-print unp_fa_icon"></i>
+          </button>
+        </div>
+      </div>
+      
+    </div>
+    
+    
+    <!--todo: make flash dade away after a few seconds-->
+    <!--flask div-->
+    {% block flash %}
+    <div class="div-flash" id="div-flash">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="alert alert-dismissible alert-{{ category }} fade show">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+    </div>
+    {% endblock flash %}
+
+    <!--content div-->
+    <div class="mb">
+    {% block content %}
+    {% endblock content %}
+    </div>
+ 
+    <!--dt_modal-->
+    {% block dt_modal %}
+    {% endblock dt_modal %}
+
+    
+    {% block scripts %}
+    
+      <!-- jQuery JS -->
+      <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>-->
+      <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>-->
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+       
+       <!--Popper.JS -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+       <!--Bootstrap JS -->
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" ></script>
+      <!--ireps.js-->
+      <script src="{{ url_for('static', filename='scripts/ireps.js') }}" ></script>
+    
+      <!-- datatables JS -->
+      <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+  
+      <script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+      <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
+  
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+      <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+      <script src="https://cdn.datatables.net/select/1.3.0/js/dataTables.select.min.js"></script>
+  
+      <script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+      
+    {% endblock scripts %}
+    
+
+
+
+</body>
+</html>

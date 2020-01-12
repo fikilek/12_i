@@ -158,6 +158,11 @@ class UnpSignInForm(FlaskForm):
 
 
 
+#**********************************************************************************************************************#
+#                                                                                                                      #
+# START                                              unp                                                               #
+#                                                                                                                      #
+#**********************************************************************************************************************#
 
 
 @app.route("/unp_email_signup", methods=["GET", "POST"])
@@ -306,7 +311,7 @@ def unp_signin():
                     # TODO : fix the redirect problem. at the moment it redirect only to mn_ireps irrespective.
                     #  It should redirect to next page
                     flash(f'user successfully logged in', 'success')
-                    return redirect(request.args.get('next') or url_for('ireps'))
+                    return redirect(request.args.get('next') or url_for('unp_profile'))
                 else:
                     flash(f'could not logon, either email adr incorrect or not exist, or password mismatch, '
                           f'try again', 'danger')
@@ -377,11 +382,34 @@ def unp_pwd_reset(email):
     return render_template("unp_pwd_reset_form.html", form=form)
 
 
+@app.route("/unp_boqs")
+def unp_boqs():
+    return render_template("unp_boqs.html")
+
+
+@app.route("/unp_emails")
+def unp_emails():
+    return render_template("unp_emails.html")
+
+
+@app.route("/unp_logon_history")
+def unp_logon_history():
+    return render_template("unp_logon_history.html")
+
+
 @app.route("/unp_profile")
-@login_required
 def unp_profile():
-    """starting unp_profile function"""
-    return render_template('unp_user_profile.html')
+    return render_template("unp_profile.html")
+
+
+@app.route("/unp_smss")
+def unp_smss():
+    return render_template("unp_smss.html")
+
+
+@app.route("/unp_stats")
+def unp_stats():
+    return render_template("unp_stats.html")
 
 
 @login_manager.user_loader
@@ -402,18 +430,89 @@ def unp_signout():
     return redirect(url_for('index'))
 
 
+#**********************************************************************************************************************#
+#                                                                                                                      #
+# START                                                wos, asts, trns                                                 #
+#                                                                                                                      #
+#**********************************************************************************************************************#
+
+# idt is ireps datatable,
+# op_code is either assets(asts) or transactions(trns),
+# arc is asset (register) category
+# trc is transaction code
+@app.route("/idt/<op_code>/<arc>/<trc>")
+def idt(op_code='', arc='', trc=''):
+    return render_template("idt.html", op_code=op_code, arc=arc, trc=trc)
+
+#**********************************************************************************************************************#
+#                                                                                                                      #
+# END                                               wos, asts, trns                                                    #
+#                                                                                                                      #
+#**********************************************************************************************************************#
+
+
+
+#**********************************************************************************************************************#
+#                                                                                                                      #
+# START                                                knowledge bas                                                   #
+#                                                                                                                      #
+#**********************************************************************************************************************#
+
+
+@app.route("/knowledge_base")
+def knowledge_base():
+    return render_template("knowledge_base.html")
+
+#**********************************************************************************************************************#
+#                                                                                                                      #
+# END                                               wos, asts, trns                                                    #
+#                                                                                                                      #
+#**********************************************************************************************************************#
+
+
+
+
+
+#**********************************************************************************************************************#
+#                                                                                                                      #
+# START                                                dbd                                                             #
+#                                                                                                                      #
+#**********************************************************************************************************************#
+
+
+@app.route("/dbd_asts")
+def dbd_asts():
+    return render_template("dbd_asts.html", )
+
+
+@app.route("/dbd_erfs")
+def dbd_erfs():
+    return render_template("dbd_erfs.html")
+
+
+@app.route("/dbd_trns")
+def dbd_trns():
+    return render_template("dbd_trns.html")
+
+
+@app.route("/dbd_unp")
+def dbd_unp():
+    return render_template("dbd_unp.html")
+
+
+
+#**********************************************************************************************************************#
+#                                                                                                                      #
+# END                                                dbd                                                               #
+#                                                                                                                      #
+#**********************************************************************************************************************#
+
+
+
 @app.route("/")
 def index():
     """stating index function. this is the landing page for all visitor to ireps. it does not need authentication"""
-    return render_template("index.html")
-
-
-@app.route("/ireps")
-@login_required
-def ireps():
-    """stating ireps function. this is the page page delivered to the user who has successfully logged on."""
-    # TODO still to develop a full iREPS landing page
-    return render_template("ireps.html")
+    return render_template("index.html", filename="index")
 
 
 ########################################################################################################################

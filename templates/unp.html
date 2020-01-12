@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+      <!--unp_profile_header (upd)-->
+      <div id="unp_main_body_div" class="unp_main_body_div">
+        
+        <!--upd_heading-->
+        <div id="upd_heading" class="upd_heading">
+          
+          <!--upd_heading_picture-->
+          <div class="upd_heading_item" id="upd_heading_picture" >
+            <img id="img_upd_heading_picture"  src="../static/images/passport_pic.jpg" >
+          </div>
+          
+          <!--unp ml2 menus-->
+          <div class="upd_heading_item unp_ml2_menus">
+            
+            <div id="unp_ml2_menus">
+      
+              <!--unp profile-->
+              <div>
+                <button id="ml2_unp_profile" class="unp_menu_btn" title="user profile">
+                  <a href="{{ url_for('unp_profile') }}">
+                    <i class="fas fa-address-card unp_fa_icon"></i>
+                  </a>
+                </button>
+              </div>
+      
+              <!--unp stats-->
+              <div>
+                <button id="ml2_unp_stats" class="unp_menu_btn" title="user stats">
+                  <a href="{{ url_for('unp_stats') }}">
+                    <i class="fas fa-database unp_fa_icon"></i>
+                  </a>
+                </button>
+              </div>
+        
+              <!--logon history-->
+              <div>
+                <button id="ml2_unp_logon_history" class="unp_menu_btn" title="logon history">
+                  <a href="{{ url_for('unp_logon_history') }}">
+                    <i class="fas fa-history unp_fa_icon"></i>
+                  </a>
+                </button>
+              </div>
+      
+              <!--BoQ's (these are quantities for all transactions for a user)-->
+              <div>
+                <button id="ml2_unp_boqs" class="unp_menu_btn" title="BoQ's">
+                  <a href="{{ url_for('unp_boqs') }}">
+                    <i class="fas fa-weight unp_fa_icon"></i>
+                  </a>
+                </button>
+              </div>
+      
+              <!--SMS's-->
+              <div>
+                <button id="ml2_unp_smss" class="unp_menu_btn" title="text messages">
+                  <a href="{{ url_for('unp_smss') }}">
+                    <i class="fas fa-sms unp_fa_icon"></i>
+                  </a>
+                </button>
+              </div>
+      
+              <!--emails-->
+              <div>
+                <button id="ml2_unp_emails" class="unp_menu_btn" title="emails">
+                  <a href="{{ url_for('unp_emails') }}">
+                    <i class="fas fa-envelope unp_fa_icon"></i>
+                  </a>
+                </button>
+              </div>
+    
+            </div>
+            
+          </div>
+          
+          <!--unp stats-->
+          <div class="upd_heading_item heading_stats">
+            
+            <!--user total trns-->
+            <div class="upd_stats">
+              <!--total ireps trns-->
+              <div>
+                <span>
+                total <strong>ireps</strong> trns
+                </span>
+              </div>
+              <!--total ireps trns-->
+              <div>
+                <h1>34589</h1>
+              </div>
+            </div>
+            
+            <!--total user trns-->
+            <div class="upd_stats">
+              <!-- total user trns-->
+              <div>
+                <span>
+                total <strong>user</strong> trns
+                </span>
+              </div>
+              <!--total ireps trns-->
+              <div>
+                <h1>5268</h1>
+              </div>
+            </div>
+            
+            <!--user user qap trns-->
+            <div class="upd_stats">
+              <!-- total user qap trns-->
+              <div>
+                <span>
+                total <strong>qap</strong> trns
+                </span>
+              </div>
+              <!--total qap trns-->
+              <div>
+                <h1>5200</h1>
+              </div>
+            </div>
+            
+            <!--user qaf trns-->
+            <div class="upd_stats">
+              <!-- total user qaf trns-->
+              <div>
+                <span>
+                total pending <strong>qaf</strong> trns
+                </span>
+              </div>
+              <!--total qap trns-->
+              <div>
+                <h1>68</h1>
+              </div>
+            </div>
+          </div>
+          
+        </div >
+      
+        <!--upd_body-->
+        <div id="upd_body" class="upd_body">
+          <!--upd_body_main_display-->
+          <div id="upd_body_main_display">
+          {% block upd_body_main_display %}
+          {% endblock upd_body_main_display %}
+          </div>
+        </div>
+        
+      </div>
+      
+    </div>
+  
+{% endblock content %}

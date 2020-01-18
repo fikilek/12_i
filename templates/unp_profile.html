@@ -9,16 +9,17 @@
       <div class="card-header">
         <button class="btn btn-primary unp_profile_add">+</button>
         <span>user account details</span>
-        <button class="btn btn-primary">edit</button>
+        <button class="btn btn-primary" id="unp_profile_data_edit_btn">edit</button>
       </div>
       <div class="card-body">
-        <p>kentane fikile</p>
-        <p>fikilek@innopen.co.za</p>
-        <p>081 310 0063</p>
-        <p>680416 6044 080</p>
-        <p>16 april 1968</p>
-        <p>status: active</p>
-        <p>date acc opened: 20 nov 2019</p>
+        <p><strong>surname : </strong><span id="unp_surname"></span></p>
+        <p><strong>name : </strong><span id="unp_name"></span></p>
+        <p><strong>email : </strong><sapn id="unp_email_adr" ></sapn></p>
+        <p><strong>mobile no : </strong><span id="unp_mobile_number"></span></p>
+        <p><strong>id no : </strong><span id="unp_id_no"></span></p>
+        <p><strong>date of birth : </strong><span id="unp_dob"></span></p>
+        <p><strong>acc status : </strong><span id="unp_acc_status"></span></p>
+        <p><strong>date acc opened: </strong><span id="unp_date_acc_created"></span></p>
       </div>
     </div>
   </div>
@@ -52,3 +53,10 @@
 </div>
 
 {% endblock upd_body_main_display %}
+
+
+
+{% block unp_profile %}
+<!-- Modal -->
+  {{ super() }}
+{% endblock unp_profile %}

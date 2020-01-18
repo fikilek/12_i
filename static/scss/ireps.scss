@@ -12,6 +12,7 @@
 
 ul {
 	background: white;
+	z-index: 1;
 }
 
 /* start navbar (main menu)-------------------------------------------------------------------------------------------------------*/
@@ -20,7 +21,7 @@ ul {
 	display: flex;
 	justify-content: space-between;
 	height: 40px;
-	z-index: 10;
+	z-index: 0;
 	width: 100%;
 	background: white;
 }
@@ -39,7 +40,7 @@ ul {
 }
 
 ul.mm {
-    margin-bottom: 0;
+    margin: 10px;
 }
 
 .div-mml ul {
@@ -61,7 +62,7 @@ ul.mm li {
     text-align: center;
     position: relative;
     float: left;
-    margin: 4px;
+    margin: 0px;
     color: green;
 }
 
@@ -265,7 +266,7 @@ ul.mm .sub1 li:hover .sub2 {
 
 .card {
 	width: -webkit-fill-available;
-	z-index: -20;
+	z-index: 0;
 }
 
 .card img {
@@ -349,7 +350,7 @@ ul.mm .sub1 li:hover .sub2 {
 
 	.div-flash .alert {
 		margin-bottom: 0px;
-    z-index: -20;
+    z-index: 0;
 	}
 
 /* END flash ----------------------------------------------------------------------------------------------------------*/
@@ -436,3 +437,12 @@ ul.mm .sub1 li:hover .sub2 {
 
 /* END forms ----------------------------------------------------------------------------------------------------------*/
 
+/* start modal forms --------------------------------------------------------------------------------------------------------*/
+
+.modal-form-btns {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+/* start modal forms --------------------------------------------------------------------------------------------------------*/

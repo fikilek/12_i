@@ -48,7 +48,7 @@
             <li><a href="{{ url_for('idt', op_code='asts', arc='cb', trc=' ')}}">circuit breakers</a> </li>
           </ul>
         </li>
-        <li><a href="{{ url_for('idt', op_code='trns', arc='', trc='')}}">transactions</a><span class="darrow">&#9660</span>
+        <li><a href="{{ url_for('idt', op_code='trns', arc=' ', trc=' ')}}">transactions</a><span class="darrow">&#9660</span>
           <ul class="sub1">
               <li><a href="{{ url_for('idt', op_code='trns', arc='bk', trc=' ')}}">kiosk/box</a><span class="rarrow">&#9656</span>
                 <ul class="sub2">
@@ -133,7 +133,7 @@
         {% endif %}
   
         {% if current_user.is_authenticated %}
-            <li><a href = "{{ url_for('unp_signout') }}">User:{{ current_user.unp_a01_id }}
+            <li><a href = "#">User:{{ current_user.unp_a01_id }}
                 </a><span class="darrow">&#9660</span>
         {% else %}
             <li><a href = "{{ url_for('unp_signin') }}">sign in</a>
@@ -162,7 +162,7 @@
         <!--unp unp_pml_btn_title-->
         <div>
           <button id="pgm_page_title" type="button" class="unp_pml_btn_title btn btn-sm pgm_title_btn" title="user profile">
-            user profile <span class="badge badge-light pgm_title_user_acc_id" title="unique user acc id">4</span>
+            user profile <span id="unp_id" class="badge badge-light pgm_title_user_acc_id" title="unique user acc id"></span>
           </button>
         </div>
 
@@ -273,12 +273,90 @@
     {% block content %}
     {% endblock content %}
     </div>
- 
-    <!--dt_modal-->
-    {% block dt_modal %}
-    {% endblock dt_modal %}
-
     
+    
+    {% block unp_profile %}
+    <!-- Modal -->
+    
+      {# unp_profile_user_acc_details modal ---------------------------------------------------------------------------#}
+      <div class="modal fade" id="unp_profile_user_acc_details_modal" tabindex="-1" role="dialog"
+           aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="unp_profile_title">user profile [acc no: ] [Acc opened: <strong>2020 01 22</strong>]</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div>
+                <form method="" action="#" id="" enctype="">
+                  <!--surname-->
+                  <div class="form-group">
+                    <!--<label for="unp_surname_modal" class="form-control-label">surname</label>-->
+                    <input type="text" class="form-control form-control-sm" id="unp_surname_modal"
+                           name="unp_surname_modal" placeholder="surname" value="">
+                  </div>
+                  <!--name-->
+                  <div class="form-group">
+                    <!--<label for="unp_name_modal" class="form-control-label">name</label>-->
+                    <input type="text" class="form-control form-control-sm" id="unp_name_modal"
+                           name="unp_name_modal" placeholder="name" value="">
+                  </div>
+                  <!--email-->
+                  <div class="form-group">
+                    <!--<label for="unp_email_adr_modal" class="form-control-label">email adr</label>-->
+                    <input type="text" class="form-control form-control-sm" id="unp_email_adr_modal"
+                           name="unp_email_adr_modal" placeholder="email adr" value="">
+                  </div>
+                  <!--mobile no-->
+                  <div class="form-group" id="trn-select">
+                    <!--<label for="unp_mobile_number_modal" class="form-control-label">mobile no</label>-->
+                    <input type="text" class="form-control form-control-sm" id="unp_mobile_number_modal"
+                           name="unp_mobile_number_modal" placeholder="mobile no" value="">
+                  </div>
+                  <!--id no-->
+                  <div class="form-group">
+                    <!--<label for="unp_id_no_modal" class="form-control-label">id no</label>-->
+                    <input type="text" class="form-control form-control-sm" id="unp_id_no_modal"
+                           name="unp_id_no_modal" placeholder="id no" value="">
+                  </div>
+                  <!--dob-->
+                  <div class="form-group">
+                    <!--<label for="unp_dob_modal" class="form-control-label">dob</label>-->
+                    <input type="text" class="form-control form-control-sm" id="unp_dob_modal"
+                           name="unp_dob_modal" placeholder="date of birth" value="">
+                  </div>
+                  
+                  <!--acc status-->
+                  <div class="form-group">
+                    <input type="hidden" class="form-control form-control-sm" id="unp_acc_status_modal"
+                           name="unp_dob_modal" placeholder="acc status" value="">
+                  </div>
+                  
+                  <!--date acc created on-->
+                  <div class="form-group">
+                    <input type="hidden" class="form-control form-control-sm" id="unp_acc_created_on_datetime_modal"
+                           name="unp_dob_modal" placeholder="date acc created on" value="">
+                  </div>
+                  
+                  
+                  <div class="form-group modal-form-btns">
+                    <input type="button" class="btn btn-secondary" data-dismiss="modal" value="Cancel">
+                    <input type="submit" class="btn btn-primary" id="unp_profile_user_acc_details_modal_submit_btn">
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    
+    {% endblock unp_profile %}
+    
+
     {% block scripts %}
     
       <!-- jQuery JS -->

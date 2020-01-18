@@ -24,7 +24,7 @@ const ireps = (function() { //ireps
 
 //	this function goes to the db unp table and use either unp_id or unp_email to collect unp data
 		this.set_unp_details = function(unp_obj) {
-//			this.unp_id = 12;
+			this.unp_id = unp_obj.unp_id;
 			this.surname = unp_obj.surname;
 			this.name = unp_obj.name;
 			this.email = unp_obj.email;
@@ -531,6 +531,19 @@ const unp_ui_controller = (function(){
 		unp_acc_status: "#unp_acc_status",
 		unp_date_acc_created: "#unp_date_acc_created",
 		unp_id: "#unp_id",
+		unp_profile_data_edit_btn: "#unp_profile_data_edit_btn",
+
+//  unp profile user acc modal id
+		unp_profile_user_acc_details_modal: "#unp_profile_user_acc_details_modal",
+		unp_surname_modal: "#unp_surname_modal",
+		unp_name_modal: "#unp_name_modal",
+		unp_email_adr_modal: "#unp_email_adr_modal",
+		unp_mobile_number_modal: "#unp_mobile_number_modal",
+		unp_id_no_modal: "#unp_id_no_modal",
+		unp_dob_modal: "#unp_dob_modal",
+		unp_acc_status_modal: "#unp_acc_status_modal",
+		unp_acc_created_on_datetime_modal: "#unp_acc_created_on_datetime_modal",
+		unp_profile_user_acc_details_modal_submit_btn: "#unp_profile_user_acc_details_modal_submit_btn",
 
 		ml1_ireps: "#ml1_ireps",
 		page_menu_div: "#page_menu_div",
@@ -619,92 +632,78 @@ const unp_ui_controller = (function(){
     });
 	}
 
-//	set_unp_profile_acc = function(unp){
+	set_unp_profile_acc = function(unp){
 //
-//		let email_adr, email_label, email_verified, mobile_no, mobile_no_label, mobile_no_verified , acc_status_options;
-//
-////	initialize unp id
-//		document.querySelector(dom_strings.unp_id).innerText = unp.unp_id;
-//
-////	initialize surname
-//		document.querySelector(dom_strings.unp_surname).value = unp.surname ;
-//
-////  initialize name
-//		document.querySelector(dom_strings.unp_name).value = unp.name;
-//
-//// initialize email adr and label
-//		email_adr = document.querySelector(dom_strings.unp_email_adr)
-//		email_adr.value = unp.email;
-//		email_label = email_adr.parentNode.firstElementChild.innerText
-//
-//		if(!(email_label.search("verified") === -1)) {
-//			email_label = email_label.substr(0, email_label.indexOf("(") )
-//		}
-//		if(unp.email_verified_on_datetime){
-//			email_verified = "(verified on : " + unp.email_verified_on_datetime + ")";
-//		} else {
-//			email_verified = "(email adr NOT verified)";
-//			email_adr.style.color = 'red'
-//		}
-//		email_adr.parentNode.firstElementChild.innerText = email_label + " " + email_verified;
-//
-//// initialize email adr dtv
-//		document.querySelector(dom_strings.unp_email_adr_dtv).value = unp.email_verified_on_datetime;;
-//
-////  todo: [conform with DRY RULE]consolidate initialization of the mobile number and email adr. both require testing verification.
-////  initialize mobile number and label
-//		mobile_no = document.querySelector(dom_strings.unp_mobile_number);
-//		mobile_no.value = unp.mobile_no;
-//		mobile_no_label = mobile_no.parentNode.firstElementChild.innerText
-//
-//		if(!(mobile_no_label.search("verified") === -1)) {
-//			mobile_no_label = mobile_no_label.substr(0, email_label.indexOf("(") )
-//		}
-//		if(unp.mobile_no_verified_on_datetime){
-//			mobile_no_verified = "(verified on : " + unp.mobile_no_verified_on_datetime + ")";
-//		} else {
-////    todo: annimate the display of the NOT verified mobile no
-//			mobile_no_verified = "(mobile number NOT verified)";
-//			mobile_no.style.color = 'red'
-//		}
-//		mobile_no.parentNode.firstElementChild.innerText = mobile_no_label + " " + mobile_no_verified;
-//
-//// initialize mobile no dtv
-//		document.querySelector(dom_strings.unp_mobile_number_dtv).value = unp.mobile_no_verified_on_datetime;;
-//
-////	initialize id number
-//		document.querySelector(dom_strings.unp_id_no).value = unp.id_no ;
-//
-////  initialize date of birth (dob)
-//		document.querySelector(dom_strings.unp_dob).value = unp.dob ;
-//
-////  initialize account status
-//		Array.from(document.querySelector(dom_strings.unp_acc_status).children).forEach(function(current_value, index, arr){
-//			if(current_value.value === unp.acc_status){
-//				arr[index].setAttribute("selected", "selected");
-//			}
-//		});
-//
-////  initialize datetime user account was created
-//		document.querySelector(dom_strings.unp_date_acc_created).value = unp.acc_created_on_datetime;
-//
-////	disable all editable fields
-//		$('.editable').attr('disabled', true);
-//		$('.non_editable').attr('disabled', true);
-//	}
+		let email_adr, email_label, email_verified, mobile_no, mobile_no_label, mobile_no_verified , acc_status_options;
+
+//	initialize unp id
+		document.querySelector(dom_strings.unp_id).innerText = unp.unp_id;
+
+//	initialize surname
+		document.querySelector(dom_strings.unp_surname).innerText = unp.surname ;
+
+//  initialize name
+		document.querySelector(dom_strings.unp_name).innerText = unp.name;
+
+// initialize email adr and label
+		document.querySelector(dom_strings.unp_email_adr).innerText = unp.email;
+
+
+//  initialize mobile number and label
+		document.querySelector(dom_strings.unp_mobile_number).innerText = unp.mobile_no;
+
+//	initialize id number
+		document.querySelector(dom_strings.unp_id_no).innerText = unp.id_no ;
+
+//  initialize date of birth (dob)
+		document.querySelector(dom_strings.unp_dob).innerText = unp.dob ;
+
+//  initialize account status
+		document.querySelector(dom_strings.unp_acc_status).innerText = unp.acc_status;
+
+//  initialize datetime user account was created
+		document.querySelector(dom_strings.unp_date_acc_created).innerText = unp.acc_created_on_datetime;
+
+	}
+
+
+	set_unp_profile_modal = function(unp_profile_acc_data) {
+		document.querySelector(dom_strings.unp_surname_modal).value = unp_profile_acc_data.surname;
+		document.querySelector(dom_strings.unp_name_modal).value = unp_profile_acc_data.name;
+		document.querySelector(dom_strings.unp_email_adr_modal).value = unp_profile_acc_data.email;
+		document.querySelector(dom_strings.unp_mobile_number_modal).value = unp_profile_acc_data.mobile_no;
+		document.querySelector(dom_strings.unp_id_no_modal).value = unp_profile_acc_data.id_no;
+		document.querySelector(dom_strings.unp_dob_modal).value = unp_profile_acc_data.dob;
+		document.querySelector(dom_strings.unp_acc_status_modal).value = unp_profile_acc_data.acc_status;
+		document.querySelector(dom_strings.unp_acc_created_on_datetime_modal).value = unp_profile_acc_data.acc_created_on_datetime;
+	}
+
+	get_unp_profile_modal = function() {
+		return {
+			surname: document.querySelector(dom_strings.unp_surname_modal).value.trim(),
+			name: document.querySelector(dom_strings.unp_name_modal).value.trim(),
+			email: document.querySelector(dom_strings.unp_email_adr_modal).value.trim(),
+			mobile_no: document.querySelector(dom_strings.unp_mobile_number_modal).value.trim(),
+			id_no: document.querySelector(dom_strings.unp_id_no_modal).value.trim(),
+			dob: document.querySelector(dom_strings.unp_dob_modal).value.trim(),
+			acc_status: document.querySelector(dom_strings.unp_acc_status_modal).value.trim(),
+			acc_created_on_datetime: document.querySelector(dom_strings.unp_acc_created_on_datetime_modal).value.trim(),
+		}
+	}
+
 
 	get_unp_profile_acc = function(){
 		return {
-			surname: document.querySelector(dom_strings.unp_surname).value.trim(),
-			name: document.querySelector(dom_strings.unp_name).value.trim(),
-			email: document.querySelector(dom_strings.unp_email_adr).value,
-			email_verified_on_datetime: document.querySelector(dom_strings.unp_email_adr_dtv).value.trim(),
-			mobile_no: document.querySelector(dom_strings.unp_mobile_number).value.trim(),
-			mobile_no_verified_on_datetime: document.querySelector(dom_strings.unp_mobile_number_dtv).value.trim(),
-			id_no: document.querySelector(dom_strings.unp_id_no).value.trim(),
-			dob: document.querySelector(dom_strings.unp_dob).value.trim(),
-			acc_status: $(dom_strings.unp_acc_status+" :selected").val().trim(),
-			acc_created_on_datetime: document.querySelector(dom_strings.unp_date_acc_created).value.trim(),
+			surname: document.querySelector(dom_strings.unp_surname).innerText.trim(),
+			name: document.querySelector(dom_strings.unp_name).innerText.trim(),
+			email: document.querySelector(dom_strings.unp_email_adr).innerText.trim(),
+//			email_verified_on_datetime: document.querySelector(dom_strings.unp_email_adr_dtv).innerText.trim(),
+			mobile_no: document.querySelector(dom_strings.unp_mobile_number).innerText.trim(),
+//			mobile_no_verified_on_datetime: document.querySelector(dom_strings.unp_mobile_number_dtv).innerText.trim(),
+			id_no: document.querySelector(dom_strings.unp_id_no).innerText.trim(),
+			dob: document.querySelector(dom_strings.unp_dob).innerText.trim(),
+			acc_status: document.querySelector(dom_strings.unp_acc_status).innerText.trim(),
+			acc_created_on_datetime: document.querySelector(dom_strings.unp_date_acc_created).innerText.trim(),
 		}
 	}
 
@@ -735,6 +734,8 @@ const unp_ui_controller = (function(){
 		get_unp_profile_acc: get_unp_profile_acc,
 		update_unp_pgm_on_save_or_cancel: update_unp_pgm_on_save_or_cancel,
 		update_unp_pgm_on_edit: update_unp_pgm_on_edit,
+		set_unp_profile_modal: set_unp_profile_modal,
+		get_unp_profile_modal: get_unp_profile_modal,
 //		toggle_pgm: toggle_pgm,
 	}
 
@@ -746,15 +747,16 @@ const unp_data_controller = (function(app){
 	const user_id = 8;
 //todo: write code to collect unp data from ieps unp table using unp_id
 	const unp_obj = {
+		unp_id: "73512",
 		surname: "kentane",
-		name: "fi",
+		name: "fikile",
 		email: "fikilek@innopen.co.za",
 		email_verified_on_datetime: "190912 13:23",
 		mobile_no: "081 310 0063",
 		mobile_no_verified_on_datetime: "",
 		id_no: "680416 6044 080",
 		dob: "680416",
-		acc_status: "" ,//this will be either 'active' (boolean 1 ot true) or 'non active' (boolean 0 or false)
+		acc_status: "active" ,//this will be either 'active' (boolean 1 ot true) or 'non active' (boolean 0 or false)
 		acc_created_on_datetime: "190912 10:23",
 	};
 	const user = new app.Unp(user_id).set_unp_details(unp_obj).set_roles().set_menu_permissions();
@@ -781,7 +783,7 @@ const unp_data_controller = (function(app){
 //initialize menus on the ui
 	uuc.initialize_menus(ms);
 //set unp profile data on the ui
-//	uuc.set_unp_profile_acc(unp);
+	uuc.set_unp_profile_acc(unp);
 //setup event listeners
 	(function() {
 
@@ -840,7 +842,6 @@ const unp_data_controller = (function(app){
 			uuc.set_unp_profile_acc(unp);
 //		update page menu ui after cancel pgm clicked
 			uuc.update_unp_pgm_on_save_or_cancel();
-			console.log("unp on cancel", unp);
 		})
 
 		document.querySelector(dom.pgm_save).addEventListener("click", function(){
@@ -848,7 +849,6 @@ const unp_data_controller = (function(app){
 			unp.set_unp_details(uuc.get_unp_profile_acc())
 //		update page menu ui after save pgm clicked
 			uuc.update_unp_pgm_on_save_or_cancel();
-			console.log("unp on save", unp);
 		})
 
 //		document.querySelector(dom.pgm_view).addEventListener("click", function(){
@@ -883,6 +883,37 @@ const unp_data_controller = (function(app){
 	    alert("printer");
 
 		})
+
+		document.querySelector(dom.unp_profile_data_edit_btn).addEventListener("click", function(){
+			$(dom.unp_profile_user_acc_details_modal).modal('show');
+		})
+
+
+//	take action and prepare data to display on the modal
+		$(dom.unp_profile_user_acc_details_modal).on('show.bs.modal', function (e) {
+//			alert('unp_profile_user_acc_details about to be shown');
+			uuc.set_unp_profile_modal(uuc.get_unp_profile_acc());
+		})
+
+
+//	take action and prepare to save modal data
+		$(dom.unp_profile_user_acc_details_modal).on('hide.bs.modal', function (e) {
+		  console.log('unp_profile_user_acc_details MODAL has been closed');
+		})
+
+//  listen for a submit button
+		document.querySelector(dom.unp_profile_user_acc_details_modal_submit_btn).addEventListener("click", function(e){
+			e.preventDefault();
+//		get unp profile acc data and update unp at udc
+			unp.set_unp_details(uuc.get_unp_profile_modal())
+			$(dom.unp_profile_user_acc_details_modal).modal('hide');
+			uuc.set_unp_profile_acc(unp);
+			console.log( unp )
+		})
+
+
+
+
 
 	})();
 

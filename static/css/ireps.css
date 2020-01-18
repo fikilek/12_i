@@ -5,7 +5,8 @@
   box-sizing: border0-box; }
 
 ul {
-  background: white; }
+  background: white;
+  z-index: 1; }
 
 /* start navbar (main menu)-------------------------------------------------------------------------------------------------------*/
 .main_menu_div, .page_menu_div {
@@ -16,7 +17,7 @@ ul {
   -ms-flex-pack: justify;
   justify-content: space-between;
   height: 40px;
-  z-index: 10;
+  z-index: 0;
   width: 100%;
   background: white; }
 
@@ -39,7 +40,7 @@ ul {
   justify-content: right; }
 
 ul.mm {
-  margin-bottom: 0; }
+  margin: 10px; }
 
 .div-mml ul {
   padding: 0px; }
@@ -57,7 +58,7 @@ ul.mm li {
   text-align: center;
   position: relative;
   float: left;
-  margin: 4px;
+  margin: 0px;
   color: green; }
 
 ul.mm a {
@@ -223,7 +224,7 @@ ul.mm .sub1 li:hover .sub2 {
 
 .card {
   width: -webkit-fill-available;
-  z-index: -20; }
+  z-index: 0; }
 
 .card img {
   margin: auto; }
@@ -303,7 +304,7 @@ ul.mm .sub1 li:hover .sub2 {
 
 .div-flash .alert {
   margin-bottom: 0px;
-  z-index: -20; }
+  z-index: 0; }
 
 /* END flash ----------------------------------------------------------------------------------------------------------*/
 /* START main block----------------------------------------------------------------------------------------------------*/
@@ -378,3 +379,13 @@ ul.mm .sub1 li:hover .sub2 {
   color: blue; }
 
 /* END forms ----------------------------------------------------------------------------------------------------------*/
+/* start modal forms --------------------------------------------------------------------------------------------------------*/
+.modal-form-btns {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between; }
+
+/* start modal forms --------------------------------------------------------------------------------------------------------*/

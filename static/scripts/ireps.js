@@ -831,26 +831,6 @@ const unp_data_controller = (function(app){
 
 		})
 
-	  document.querySelector(dom.pgm_edit).addEventListener("click", function(){
-//	  update pgm after edit btn clicked
-			uuc.update_unp_pgm_on_edit();
-		})
-
-		document.querySelector(dom.pgm_cancel).addEventListener("click", function(){
-//		user may have already modified (edited) some fields which must be rest on cancel, these must be rest to their
-//    current unp field values. this is same as form reset.
-			uuc.set_unp_profile_acc(unp);
-//		update page menu ui after cancel pgm clicked
-			uuc.update_unp_pgm_on_save_or_cancel();
-		})
-
-		document.querySelector(dom.pgm_save).addEventListener("click", function(){
-//		get unp profile acc data and update unp at udc
-			unp.set_unp_details(uuc.get_unp_profile_acc())
-//		update page menu ui after save pgm clicked
-			uuc.update_unp_pgm_on_save_or_cancel();
-		})
-
 //		document.querySelector(dom.pgm_view).addEventListener("click", function(){
 //
 //		})

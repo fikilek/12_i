@@ -54,10 +54,104 @@ const ireps = (function() { //ireps
 			this.menu_permissions = new Ump(this).set_ump().get_ump();
 			return this;
 		};
+
+//	user logon history (ulh is user or unp logon history)
+		this.logon_history = [];
+		this.set_logon_history = () => {
+			this.logon_history = new Ulh(this.unp_id).set_ulh().get_ulh();
+			return this;
+		}
+		this.get_logon_history = () => this.logon_history;
+
+//	get user logon history columns
+		this.get_logon_history_cols = () => {
+			const cols = Object.keys(this.logon_history[0]);
+			const cloumns = cols.map((value, index) => {
+				return { 'data': value, 'title': value }
+			});
+			return cloumns;
+		}
+
+
+//	user boqs
+		this.boqs = [];
+		this.set_boqs = () => {
+			this.boqs = new Uboqs(this.unp_id).set_uboqs().get_uboqs();
+			console.log('inside set_boqs')
+//			this.boqs = new Uboqs(this.unp_id).get_uboqs();
+//			let new_boqs = new Uboqs(this.unp_id);
+//			this.boqs = new_boqs.get_uboqs();
+			return this;
+		}
+		this.get_boqs_data = () => this.boqs;
+
+//	get user boqs columns
+		this.get_boqs_cols = () => {
+			const cols = Object.keys(this.boqs[0]);
+			const cloumns = cols.map((value, index) => {
+				return { 'data': value, 'title': value }
+			});
+			return cloumns;
+		}
+
+
 		this.home_adr = new Adr();
 		this.work_adr = new Adr();
 //		this.set_unp_details();
 	}
+
+//create a db object to connect to the ireps db and collect unp logon history data
+	class Ulh {
+		constructor(unp_id) {
+			this.unp_id = unp_id;
+			this.ulh = [];
+		}
+		set_ulh = () => {
+//		todo: connect to the ireps db and retrieve unp logon history data and then set ulh
+			this.ulh = [
+				{	unpha12_log_on_at_datetime	:	"	2020/01/22 20:49	"	,	unpha13_log_out_at_datetime	:	"	2020/01/22 20:37	"	}	,
+				{	unpha12_log_on_at_datetime	:	"	2020/01/22 02:30	"	,	unpha13_log_out_at_datetime	:	"	2020/01/22 20:37	"	}	,
+				{	unpha12_log_on_at_datetime	:	"	2020/01/22 02:30	"	,	unpha13_log_out_at_datetime	:	"	2020/01/20 02:20	"	}	,
+				{	unpha12_log_on_at_datetime	:	"	2020/01/21 00:33	"	,	unpha13_log_out_at_datetime	:	"	2020/01/20 02:20	"	}	,
+				{	unpha12_log_on_at_datetime	:	"	2020/01/20 02:21	"	,	unpha13_log_out_at_datetime	:	"	2020/01/20 02:20	"	}	,
+				{	unpha12_log_on_at_datetime	:	"	2020/01/20 02:19	"	,	unpha13_log_out_at_datetime	:	"	2020/01/20 02:20	"	}	,
+				{	unpha12_log_on_at_datetime	:	"	2020/01/20 02:19	"	,	unpha13_log_out_at_datetime	:	"	2020/01/20 02:18	"	}	,
+				{	unpha12_log_on_at_datetime	:	"	2020/01/18 23:24	"	,	unpha13_log_out_at_datetime	:	"	2020/01/20 02:18	"	}	,
+			]
+			return this;
+		}
+		get_ulh = () => this.ulh;
+	}
+
+
+//create a db object to connect to the ireps db and collect unp boq data
+	class Uboqs {
+		constructor(unp_id) {
+			this.unp_id = unp_id;
+			this.uboqs = [];
+//			this.uboqs = [{boq_cycle	: "jan 2019",	qap	: "129"}];
+		}
+		set_uboqs = () => {
+//	todo: connect to the ireps db and retrieve unp logon history data and then set ulh
+			this.uboqs = [
+
+				{	"	boq_cycle	"	:"	jan 2019	",	"	qap	"	:"	129	",	"	12grv	"	:"	0	",	"	21ret"	:"	0	",	"	23alc	"	:"	129	",	"	26mis	"	:"	0	",	"	27rtd	"	:"	0	",	"	36mis	"	:"	0	",	"	43uni	"	:"	0	",	"	44com	"	:"	0	",	"	46mis	"	:"	0	",	"	5iins	"	:"	0	",	"	5rrea	"	:"	0	",	"	5ppur	"	:"	0	",	"	53uni	"	:"	0	",	"	56mis	"	:"	0	",	"	5mmai	"	:"	0	",	"	5ffwn	"	:"	0	",	"	5ddcn	"	:"	0	",	"	5rrcn	"	:"	0	",	"	5lala	"	:"	0	",	"	62rec	"	:"	0	",	"	72bac	"	:"	0	",	"	76mis	"	:"	0	",	"	83rep	"	:"	0	",	"	86mis	"	:"	0	"	},
+
+				{	"	boq_cycle	"	:"	feb 2019	",	"	qap	"	:"	129	",	"	12grv	"	:"	0	",	"	21ret"	:"	0	",	"	23alc	"	:"	129	",	"	26mis	"	:"	0	",	"	27rtd	"	:"	0	",	"	36mis	"	:"	0	",	"	43uni	"	:"	0	",	"	44com	"	:"	0	",	"	46mis	"	:"	0	",	"	5iins	"	:"	0	",	"	5rrea	"	:"	0	",	"	5ppur	"	:"	0	",	"	53uni	"	:"	0	",	"	56mis	"	:"	0	",	"	5mmai	"	:"	0	",	"	5ffwn	"	:"	0	",	"	5ddcn	"	:"	0	",	"	5rrcn	"	:"	0	",	"	5lala	"	:"	0	",	"	62rec	"	:"	0	",	"	72bac	"	:"	0	",	"	76mis	"	:"	0	",	"	83rep	"	:"	0	",	"	86mis	"	:"	0	"	},
+
+				{	"	boq_cycle	"	:"	mar 2019	",	"	qap	"	:"	129	",	"	12grv	"	:"	0	",	"	21ret"	:"	0	",	"	23alc	"	:"	129	",	"	26mis	"	:"	0	",	"	27rtd	"	:"	0	",	"	36mis	"	:"	0	",	"	43uni	"	:"	0	",	"	44com	"	:"	0	",	"	46mis	"	:"	0	",	"	5iins	"	:"	0	",	"	5rrea	"	:"	0	",	"	5ppur	"	:"	0	",	"	53uni	"	:"	0	",	"	56mis	"	:"	0	",	"	5mmai	"	:"	0	",	"	5ffwn	"	:"	0	",	"	5ddcn	"	:"	0	",	"	5rrcn	"	:"	0	",	"	5lala	"	:"	0	",	"	62rec	"	:"	0	",	"	72bac	"	:"	0	",	"	76mis	"	:"	0	",	"	83rep	"	:"	0	",	"	86mis	"	:"	0	"	},
+
+//				{"boq_cycle"	: "jan 2019",	"qap"	: "129", "12grv": "1"},
+//				{"boq_cycle"	: "feb 2019",	"qap"	: "140",	"12grv": "2"},
+//				{"boq_cycle"	: "mar 2019",	"qap"	: "12",	"12grv": "3"},
+//				{"boq_cycle"	: "apr 2019",	"qap"	: "5",	"12grv": "4"},
+
+			]
+			return this;
+		}
+		get_uboqs = () => this.uboqs;
+	}
+
 
 //create user menu permissions (ump)object constructor. the user gets its menu permissions via the user role
 //so, its accurately role menu permissions than user menu per missions
@@ -253,7 +347,7 @@ const ireps = (function() { //ireps
 		}
 	}
 
-//create ireps menu system (ms) object.
+//create menu system (ms) object.
 	const MenuSystem = function() {
 		this.menus = {};
 		this.set_ms = function() {
@@ -503,6 +597,7 @@ const ireps = (function() { //ireps
 		}
 	}
 
+
 	return {
 		Unp: Unp, //user natural person
 		Ump: Ump, //user menu permissions
@@ -516,8 +611,25 @@ const ireps = (function() { //ireps
 //this is the user natural person (unp) user interface controller. its the only object that interacts with html.
 const unp_ui_controller = (function(){
 
+//unp profile
+//todo: change color of all unp profile btns to light grey. use scss color variable
+
+//unp proflie acc
+//todo: disable the upn profile add button. unp is added when a user registers with ireps and ehrer after gets only edited
+//unp nok
+//todo: ad functionality to add next of kin. THere shouyld vonly be one nok pre unp.
+//unp roles
+//todo: add functionality to add user role. these should be added as sub-cards on the existing unp roles card
+//todo: add functionality to edit user role. this should be on the respective role card
+//todo: add functionality to delete user role. this should be on the respective role card
+
+
 	let dom_strings, set_unp_profile_acc, initialize_menus, get_unp_profile_acc, update_unp_pgm_on_save_or_cancel;
-	let update_unp_pgm_on_edit, hide_pgm;
+	let update_unp_pgm_on_edit, hide_pgm, idt_column_map, ireps_pathname;
+
+	ireps_pathname = {
+		pathname : location.pathname,
+	}
 
 	dom_strings = {
 		unp_surname: "#unp_surname",
@@ -535,6 +647,7 @@ const unp_ui_controller = (function(){
 
 //  unp profile user acc modal id
 		unp_profile_user_acc_details_modal: "#unp_profile_user_acc_details_modal",
+		unp_id_modal: "#unp_id_modal",
 		unp_surname_modal: "#unp_surname_modal",
 		unp_name_modal: "#unp_name_modal",
 		unp_email_adr_modal: "#unp_email_adr_modal",
@@ -567,6 +680,45 @@ const unp_ui_controller = (function(){
 		pgm_csv: "#pgm_csv",
 		pgm_print: "#pgm_print",
 		pgm_page_title: "#pgm_page_title",
+	}
+
+	idt_columns_map = () => {
+		columns_map = new Map();
+
+//	column names for unp_logon_history dt
+		columns_map.set('unpha12_log_on_at_datetime', 'signin');
+		columns_map.set('unpha13_log_out_at_datetime', 'signout');
+
+//	column names for unp_boqs dt
+columns_map.set("	12grv	"	,	"	12grv	" );
+columns_map.set("	21ret	"	,	"	21ret	" );
+columns_map.set("	23alc	"	,	"	23alc	" );
+columns_map.set("	26mis	"	,	"	26mis	" );
+columns_map.set("	27rtd	"	,	"	27rtd	" );
+columns_map.set("	32una	"	,	"	32una	" );
+columns_map.set("	34ins	"	,	"	34ins	" );
+columns_map.set("	38rep	"	,	"	38rep	" );
+columns_map.set("	36mis	"	,	"	36mis	" );
+columns_map.set("	43uni	"	,	"	43uni	" );
+columns_map.set("	44com	"	,	"	44com	" );
+columns_map.set("	46mis	"	,	"	46mis	" );
+columns_map.set("	5iins	"	,	"	5iins	" );
+columns_map.set("	5rrea	"	,	"	5rrea	" );
+columns_map.set("	5ppur	"	,	"	5ppur	" );
+columns_map.set("	53uni	"	,	"	53uni	" );
+columns_map.set("	56mis	"	,	"	56mis	" );
+columns_map.set("	5mmai	"	,	"	5mmai	" );
+columns_map.set("	5ffwn	"	,	"	5ffwn	" );
+columns_map.set("	5ddcn	"	,	"	5ddcn	" );
+columns_map.set("	5rrcn	"	,	"	5rrcn	" );
+columns_map.set("	5lala	"	,	"	5lala	" );
+columns_map.set("	62rec	"	,	"	62rec	" );
+columns_map.set("	72bac	"	,	"	72bac	" );
+columns_map.set("	76mis	"	,	"	76mis	" );
+columns_map.set("	83rep	"	,	"	83rep	" );
+columns_map.set("	86mis	"	,	"	86mis	" );
+
+		return columns_map;
 	}
 
 	initialize_menus = function(ms) {
@@ -632,68 +784,64 @@ const unp_ui_controller = (function(){
     });
 	}
 
-	set_unp_profile_acc = function(unp){
+//**********************************************************************************************************************
+//START unp profile
+//**********************************************************************************************************************
+
+	set_unp_profile_acc = function(unp) {
 //
-		let email_adr, email_label, email_verified, mobile_no, mobile_no_label, mobile_no_verified , acc_status_options;
+//		let email_adr, email_label, email_verified, mobile_no, mobile_no_label, mobile_no_verified , acc_status_options;
 
 //	initialize unp id
-		document.querySelector(dom_strings.unp_id).innerText = unp.unp_id;
+		if(document.body.contains(document.querySelector(dom_strings.unp_id))) {
+			document.querySelector(dom_strings.unp_id).innerText = unp.unp_id
+		}
 
 //	initialize surname
-		document.querySelector(dom_strings.unp_surname).innerText = unp.surname ;
+		if(document.body.contains(document.querySelector(dom_strings.unp_surname))){
+			document.querySelector(dom_strings.unp_surname).innerText = unp.surname
+		}
 
 //  initialize name
-		document.querySelector(dom_strings.unp_name).innerText = unp.name;
+		if(document.body.contains(document.querySelector(dom_strings.unp_name))){
+			document.querySelector(dom_strings.unp_name).innerText = unp.name
+		}
 
 // initialize email adr and label
-		document.querySelector(dom_strings.unp_email_adr).innerText = unp.email;
+		if(document.body.contains(document.querySelector(dom_strings.unp_email_adr))){
+			document.querySelector(dom_strings.unp_email_adr).innerText = unp.email
+		}
 
-
-//  initialize mobile number and label
-		document.querySelector(dom_strings.unp_mobile_number).innerText = unp.mobile_no;
+//  initialize mobile number
+		if(document.body.contains(document.querySelector(dom_strings.unp_mobile_number))){
+			document.querySelector(dom_strings.unp_mobile_number).innerText = unp.mobile_no
+		}
 
 //	initialize id number
-		document.querySelector(dom_strings.unp_id_no).innerText = unp.id_no ;
+		if(document.body.contains(document.querySelector(dom_strings.unp_id_no))){
+			document.querySelector(dom_strings.unp_id_no).innerText = unp.id_no
+		}
 
 //  initialize date of birth (dob)
-		document.querySelector(dom_strings.unp_dob).innerText = unp.dob ;
+		if(document.body.contains(document.querySelector(dom_strings.unp_dob))){
+			document.querySelector(dom_strings.unp_dob).innerText = unp.dob
+		}
 
 //  initialize account status
-		document.querySelector(dom_strings.unp_acc_status).innerText = unp.acc_status;
+		if(document.body.contains(document.querySelector(dom_strings.unp_acc_status))){
+			document.querySelector(dom_strings.unp_acc_status).innerText = unp.acc_status
+		}
 
 //  initialize datetime user account was created
-		document.querySelector(dom_strings.unp_date_acc_created).innerText = unp.acc_created_on_datetime;
-
-	}
-
-
-	set_unp_profile_modal = function(unp_profile_acc_data) {
-		document.querySelector(dom_strings.unp_surname_modal).value = unp_profile_acc_data.surname;
-		document.querySelector(dom_strings.unp_name_modal).value = unp_profile_acc_data.name;
-		document.querySelector(dom_strings.unp_email_adr_modal).value = unp_profile_acc_data.email;
-		document.querySelector(dom_strings.unp_mobile_number_modal).value = unp_profile_acc_data.mobile_no;
-		document.querySelector(dom_strings.unp_id_no_modal).value = unp_profile_acc_data.id_no;
-		document.querySelector(dom_strings.unp_dob_modal).value = unp_profile_acc_data.dob;
-		document.querySelector(dom_strings.unp_acc_status_modal).value = unp_profile_acc_data.acc_status;
-		document.querySelector(dom_strings.unp_acc_created_on_datetime_modal).value = unp_profile_acc_data.acc_created_on_datetime;
-	}
-
-	get_unp_profile_modal = function() {
-		return {
-			surname: document.querySelector(dom_strings.unp_surname_modal).value.trim(),
-			name: document.querySelector(dom_strings.unp_name_modal).value.trim(),
-			email: document.querySelector(dom_strings.unp_email_adr_modal).value.trim(),
-			mobile_no: document.querySelector(dom_strings.unp_mobile_number_modal).value.trim(),
-			id_no: document.querySelector(dom_strings.unp_id_no_modal).value.trim(),
-			dob: document.querySelector(dom_strings.unp_dob_modal).value.trim(),
-			acc_status: document.querySelector(dom_strings.unp_acc_status_modal).value.trim(),
-			acc_created_on_datetime: document.querySelector(dom_strings.unp_acc_created_on_datetime_modal).value.trim(),
+		if(document.body.contains(document.querySelector(dom_strings.unp_date_acc_created))){
+			document.querySelector(dom_strings.unp_date_acc_created).innerText = unp.acc_created_on_datetime
 		}
-	}
 
+	}
 
 	get_unp_profile_acc = function(){
 		return {
+			unp_id: document.querySelector(dom_strings.unp_id).innerText.trim(),
 			surname: document.querySelector(dom_strings.unp_surname).innerText.trim(),
 			name: document.querySelector(dom_strings.unp_name).innerText.trim(),
 			email: document.querySelector(dom_strings.unp_email_adr).innerText.trim(),
@@ -707,36 +855,120 @@ const unp_ui_controller = (function(){
 		}
 	}
 
-	update_unp_pgm_on_save_or_cancel = 	function() {
-    $('.editable').attr('disabled', true);
-    $(dom_strings.pgm_edit).show().removeAttr('disabled');
-    $(dom_strings.pgm_cancel).hide().attr('disabled', true);
-    $(dom_strings.pgm_save).hide().attr('disabled', true);
+	set_unp_profile_modal = function(unp_profile_acc_data) {
+		document.querySelector(dom_strings.unp_id_modal).value = unp_profile_acc_data.unp_id;
+		document.querySelector(dom_strings.unp_surname_modal).value = unp_profile_acc_data.surname;
+		document.querySelector(dom_strings.unp_name_modal).value = unp_profile_acc_data.name;
+		document.querySelector(dom_strings.unp_email_adr_modal).value = unp_profile_acc_data.email;
+		document.querySelector(dom_strings.unp_mobile_number_modal).value = unp_profile_acc_data.mobile_no;
+		document.querySelector(dom_strings.unp_id_no_modal).value = unp_profile_acc_data.id_no;
+		document.querySelector(dom_strings.unp_dob_modal).value = unp_profile_acc_data.dob;
+		set_unp_acc_status(unp_profile_acc_data.acc_status);
+		document.querySelector(dom_strings.unp_acc_created_on_datetime_modal).value = unp_profile_acc_data.acc_created_on_datetime;
 	}
 
-	update_unp_pgm_on_edit = 	function() {
-    $('.editable').removeAttr('disabled');
-    $(dom_strings.pgm_cancel).show().removeAttr('disabled');
-    $(dom_strings.pgm_save).show().addClass('pgm_btn_disabled'); //the save btn must show but be doasabled until a field in the unp acc is modified.
-    $(dom_strings.pgm_edit).hide().attr('disabled', true);
-    $('.editable').on('input', function() {
-      $(dom_strings.pgm_save).removeAttr('disabled').removeClass('pgm_btn_disabled');
-    });
-//  set the focus on the surname input element as soon as the page get to edit mode.
-    let surname = $(dom_strings.unp_surname).val();
-    $(dom_strings.unp_surname).val("").val(surname).focus();
+	get_unp_profile_modal = function() {
+		return {
+			unp_id: document.querySelector(dom_strings.unp_id_modal).value.trim(),
+			surname: document.querySelector(dom_strings.unp_surname_modal).value.trim(),
+			name: document.querySelector(dom_strings.unp_name_modal).value.trim(),
+			email: document.querySelector(dom_strings.unp_email_adr_modal).value.trim(),
+			mobile_no: document.querySelector(dom_strings.unp_mobile_number_modal).value.trim(),
+			id_no: document.querySelector(dom_strings.unp_id_no_modal).value.trim(),
+			dob: document.querySelector(dom_strings.unp_dob_modal).value.trim(),
+			acc_status: document.querySelector(dom_strings.unp_acc_status_modal).checked == true? 'active' : 'disabled',
+			acc_created_on_datetime: document.querySelector(dom_strings.unp_acc_created_on_datetime_modal).value.trim(),
+		}
 	}
+
+	set_unp_acc_status = status => {
+		if(status == 'active') {
+			$(dom_strings.unp_acc_status_modal)[0].checked = true;
+			$(dom_strings.unp_acc_status_modal)[0].parentNode.children[1].innerText = 'active';
+		} else if (status == 'disabled') {
+			$(dom_strings.unp_acc_status_modal)[0].checked = false;
+			$(dom_strings.unp_acc_status_modal)[0].parentNode.children[1].innerText = 'disabled';
+		} else {
+//			todo: throw an error
+		}
+	}
+
+	show_unp_profile_acc_modal = function() {
+		$(dom_strings.unp_profile_user_acc_details_modal).modal('show');
+
+	}
+
+	hide_unp_profile_acc_modal = function() {
+		$(dom_strings.unp_profile_user_acc_details_modal).modal('hide');
+
+	}
+
+//**********************************************************************************************************************
+//END unp profile
+//**********************************************************************************************************************
+
+
+//**********************************************************************************************************************
+//START unp logon history
+//**********************************************************************************************************************
+//todo: get all rows to display row numbers
+//the method create_dt is used to create ireps datatable
+	class Idt {
+		constructor(cols, data){
+			this.cols = cols;
+			this.data = data;
+			this.dt_instance = $('#idt').DataTable({
+	      "columns": this.cols,
+	      "data": this.data,
+	      "dom": '<"top"<"pml"><"pmr"B>>>rt <"bottom"lip>',
+	      "autoWidth": true,
+				"initComplete": (settings, json) => {
+
+	        //create the input search boxes at the top of the datatable on a row (tr) below thead.
+	        //this is done by cloning tr of thead and append it to same thead of the datatable (#ireps_dt)
+	        $('#idt thead tr').clone(false).appendTo( '#idt thead' );
+	        $('#idt thead tr:eq(1) th').each( function () {
+	            let title = idt_columns_map().get($(this).text());
+	            $(this).html( '<input class="col_search" type="text" placeholder="Search '+title+'" />' );
+	        });
+
+	        // Apply the search. this search function actually filters the column for a value in the input box
+	        let this_dt = this;
+	        $('#idt thead').on('keyup change', '.col_search', function () {
+	            this_dt.dt_instance.column( $(this).parent().index() ).search( this.value ).draw();
+	        });
+				},
+	    });
+		}
+		set_cols = (idt_columns_map) => {
+			let self = this;
+			self.dt_instance.columns().every(function(key, value) {
+				const header_title = idt_columns_map().get($(self.dt_instance.column(key).header()).text());
+				$(self.dt_instance.column(key).header()).text( header_title );
+			})
+			return this;
+		}
+	}
+
+
+//**********************************************************************************************************************
+//END unp logon history
+//**********************************************************************************************************************
+
 
 	return {
 		dom_strings: dom_strings,
 		initialize_menus: initialize_menus,
 		set_unp_profile_acc: set_unp_profile_acc,
 		get_unp_profile_acc: get_unp_profile_acc,
-		update_unp_pgm_on_save_or_cancel: update_unp_pgm_on_save_or_cancel,
-		update_unp_pgm_on_edit: update_unp_pgm_on_edit,
 		set_unp_profile_modal: set_unp_profile_modal,
 		get_unp_profile_modal: get_unp_profile_modal,
-//		toggle_pgm: toggle_pgm,
+		show_unp_profile_acc_modal: show_unp_profile_acc_modal,
+		hide_unp_profile_acc_modal: hide_unp_profile_acc_modal,
+		set_unp_acc_status: set_unp_acc_status,
+		Idt: Idt,
+		idt_columns_map: idt_columns_map,
+		ireps_pathname: ireps_pathname,
 	}
 
 })(); //uuc
@@ -756,10 +988,15 @@ const unp_data_controller = (function(app){
 		mobile_no_verified_on_datetime: "",
 		id_no: "680416 6044 080",
 		dob: "680416",
-		acc_status: "active" ,//this will be either 'active' (boolean 1 ot true) or 'non active' (boolean 0 or false)
+		acc_status: "active" ,//this will be either 'active' (boolean true) or 'disabled' (boolean false)
+//	todo: any other value should throw an error
 		acc_created_on_datetime: "190912 10:23",
 	};
-	const user = new app.Unp(user_id).set_unp_details(unp_obj).set_roles().set_menu_permissions();
+	const user = new app.Unp(user_id).set_unp_details(unp_obj)
+		.set_roles()
+		.set_menu_permissions()
+		.set_logon_history()
+		.set_boqs();
 	const menu_system = new app.MenuSystem().set_ms();
 	return {
 		user: user,
@@ -768,32 +1005,135 @@ const unp_data_controller = (function(app){
 
 })(ireps); //udc
 
-//this is the controller for the event generated in the unp module
+//this is the controller for the events generated in the unp module
 //uuc : unp user interface controller (ui controller)
 //udc : unp data controller. this is where all unp data is stored.
 (function(uuc, udc) {
 
-	let dom, unp, ms;
-
+//get dom strings uuc
+	const dom = uuc.dom_strings;
 
 //get user from udc
-	unp = udc.user;
+	const unp = udc.user;
+
 //get menu system from udc
-	ms = udc.ms.get_menus();
+	const ms = udc.ms.get_menus();
+
 //initialize menus on the ui
 	uuc.initialize_menus(ms);
+
+//**********************************************************************************************************************
+//START initialise dom in unp profile
+//**********************************************************************************************************************
+
 //set unp profile data on the ui
-	uuc.set_unp_profile_acc(unp);
+	if(uuc.ireps_pathname.pathname == '/unp_profile'){
+		uuc.set_unp_profile_acc(unp);
+
+		//set unp profile stats
+		//todo: code to set unp stats
+
+		//set unp profile picture
+		//todo: code to set unp picture
+
+
+		//setup event listeners for unp profile
+		(function() {
+		//	unp profile acc - edit
+		//  display unp edit user profile modal on the click of edit modal btn
+				document.querySelector(dom.unp_profile_data_edit_btn).addEventListener("click", function(){
+					uuc.show_unp_profile_acc_modal();
+				})
+
+		//	take action and prepare data to display on the modal. respond to modal show event
+				$(dom.unp_profile_user_acc_details_modal).on('show.bs.modal', function (e) {
+					uuc.set_unp_profile_modal(uuc.get_unp_profile_acc());
+				})
+
+		//	take action and prepare to save modal data
+				$(dom.unp_profile_user_acc_details_modal).on('hide.bs.modal', function (e) {
+		//    todo: clean up when the modal hides
+				})
+
+		//  submit changes made on the unp profile acc modal
+				document.querySelector(dom.unp_profile_user_acc_details_modal_submit_btn).addEventListener("click", function(e){
+					e.preventDefault();
+		//		get unp profile acc data from a modified modal form and update unp at udc
+					unp.set_unp_details(uuc.get_unp_profile_modal())
+		//		hide unp profile scc modal
+					uuc.hide_unp_profile_acc_modal();
+		//		update uuc with new unp data
+					uuc.set_unp_profile_acc(unp);
+				})
+
+
+
+		//  unp profile nok (next of kin) - there will only be one nok
+		//  todo: write event handler for adding a new nok. nok data will be displayed in a modal form like unp profile acc modal
+
+		//  todo: write event handler for editing a nok
+
+		//  todo: write event handler tp delete a nok
+
+		//  unp profile role (user roles) - there may be more than  one role per user
+		//  todo: write event handler for adding a new user role. user role data will be displayed in a modal form
+
+		//  todo: write event handler for editing a user role
+
+		//  todo: write event handler tp delete a user role
+
+				document.querySelector(dom.unp_acc_status_modal).addEventListener("click", function(e){
+					uuc.set_unp_acc_status(this.checked == true ? 'active' : 'disabled')
+				})
+
+			})();
+
+	}
+
+//**********************************************************************************************************************
+//END initialise dom in unp profile
+//**********************************************************************************************************************
+
+
+//**********************************************************************************************************************
+//START initialise dom unp logon history
+//**********************************************************************************************************************
+//first check if 'unp_logon_history' is the pathname
+	if(uuc.ireps_pathname.pathname == '/unp_logon_history'){
+	//to initialise dom for unp logon history, the following are needed:
+	//  1. column names for the unp logon history datatable. this comes from udc.
+	//  3. rows data for the unp logon history datatable. this comes from udc.
+			const ulh = new uuc.Idt(unp.get_logon_history_cols(), unp.get_logon_history()).set_cols(uuc.idt_columns_map);
+	}
+//**********************************************************************************************************************
+//END initialise dom unp logon history
+//**********************************************************************************************************************
+
+//**********************************************************************************************************************
+//START initialise dom unp boqs
+//**********************************************************************************************************************
+//first check if 'unp_boqs' is the pathname
+	if(uuc.ireps_pathname.pathname == '/unp_boqs'){
+	//to initialise dom for unp boqs, the following are needed:
+	//  1. column names for boqs datatable. this comes from udc.
+	//  3. rows data for the boqs datatable. this comes from udc.
+		const cols = unp.get_boqs_cols();
+		const data = unp.get_boqs_data();
+		const uboqs = new uuc.Idt(cols, data ).set_cols(uuc.idt_columns_map);
+	}
+//**********************************************************************************************************************
+//END initialise dom unp logon history
+//**********************************************************************************************************************
+
+
 //setup event listeners
 	(function() {
 
-//  get dom strings uuc
-		dom = uuc.dom_strings;
+
 
 //	event listeners for ml2 buttons
 		document.querySelector(dom.ml1_ireps).addEventListener("click", function(e){
 			console.log("ml1_ireps");
-			uuc.toggle_pgm();
 		})
 
 		document.querySelector(dom.ml2_unp_profile).addEventListener("click", function(){
@@ -864,48 +1204,14 @@ const unp_data_controller = (function(app){
 
 		})
 
-		document.querySelector(dom.unp_profile_data_edit_btn).addEventListener("click", function(){
-			$(dom.unp_profile_user_acc_details_modal).modal('show');
-		})
-
-
-//	take action and prepare data to display on the modal
-		$(dom.unp_profile_user_acc_details_modal).on('show.bs.modal', function (e) {
-//			alert('unp_profile_user_acc_details about to be shown');
-			uuc.set_unp_profile_modal(uuc.get_unp_profile_acc());
-		})
-
-
-//	take action and prepare to save modal data
-		$(dom.unp_profile_user_acc_details_modal).on('hide.bs.modal', function (e) {
-		  console.log('unp_profile_user_acc_details MODAL has been closed');
-		})
-
-//  listen for a submit button
-		document.querySelector(dom.unp_profile_user_acc_details_modal_submit_btn).addEventListener("click", function(e){
-			e.preventDefault();
-//		get unp profile acc data and update unp at udc
-			unp.set_unp_details(uuc.get_unp_profile_modal())
-			$(dom.unp_profile_user_acc_details_modal).modal('hide');
-			uuc.set_unp_profile_acc(unp);
-			console.log( unp )
-		})
-
-
-
-
-
 	})();
 
 	console.log("ireps has started");
 
 })(unp_ui_controller, unp_data_controller);
 
-
-
-
-
   console.log('END ireps.js document ready function')
+
 });
 
 console.log('END running ireps.js')

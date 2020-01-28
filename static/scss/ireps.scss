@@ -20,7 +20,8 @@ ul {
 .main_menu_div, .page_menu_div  {
 	display: flex;
 	justify-content: space-between;
-	height: 40px;
+	flex-wrap: wrap;
+	/*height: 40px;*/
 	z-index: 0;
 	width: 100%;
 	background: white;
@@ -40,7 +41,7 @@ ul {
 }
 
 ul.mm {
-    margin: 10px;
+    margin: 2px;
 }
 
 .div-mml ul {
@@ -157,6 +158,7 @@ ul.mm .sub1 li:hover .sub2 {
 	margin: 2px;
 	height: 120px;
 	display: flex;
+	width: 98.4vw;
 }
 
 #upd_heading_picture {
@@ -444,5 +446,16 @@ ul.mm .sub1 li:hover .sub2 {
     justify-content: space-between;
 }
 
+.modal-header {
+	justify-content: space-between;
+}
 
 /* start modal forms --------------------------------------------------------------------------------------------------------*/
+
+th.big-col{
+width:40px !important;
+}
+
+table#example{
+table-layout:fixed;
+}

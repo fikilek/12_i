@@ -80,12 +80,9 @@ class UsersNaturalPerson(db.Model, UserMixin):
         """False, as anonymous users aren't supported."""
         return False
 
-
 class UsersNaturalPersonSchema(ma.ModelSchema):
     class Meta:
         model = UsersNaturalPerson
-
-
 
 #**********************************************************************************************************************#
 #                                                                                                                      #
@@ -110,7 +107,6 @@ class UnpEmailSignUpForm(FlaskForm):
 # form - UnpPwdSignUpForm
 ########################################################################################################################
 
-
 class UnpPwdSignUpForm(FlaskForm):
     email = StringField("email", validators=[DataRequired(), Email()])
     password = PasswordField("password", validators=[DataRequired()])
@@ -121,16 +117,13 @@ class UnpPwdSignUpForm(FlaskForm):
 # form - UnpPwdEmailResetForm
 ########################################################################################################################
 
-
 class UnpPwdEmailResetForm(FlaskForm):
     email = StringField("email", validators=[DataRequired(), Email()])
     submit = SubmitField("Submit email adr for pwd reset")
 
-
 ########################################################################################################################
 # form - UnpPwdResetForm
 ########################################################################################################################
-
 
 class UnpPwdResetForm(FlaskForm):
     email = StringField("email", validators=[DataRequired(), Email()])
@@ -141,7 +134,6 @@ class UnpPwdResetForm(FlaskForm):
 ########################################################################################################################
 # form - UnpPwdSignInForm
 ########################################################################################################################
-
 
 class UnpSignInForm(FlaskForm):
     email = StringField("email", validators=[DataRequired(), Email()])

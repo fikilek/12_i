@@ -16,7 +16,9 @@ ul {
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  height: 40px;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  /*height: 40px;*/
   z-index: 0;
   width: 100%;
   background: white; }
@@ -40,7 +42,7 @@ ul {
   justify-content: right; }
 
 ul.mm {
-  margin: 10px; }
+  margin: 2px; }
 
 .div-mml ul {
   padding: 0px; }
@@ -137,7 +139,8 @@ ul.mm .sub1 li:hover .sub2 {
   height: 120px;
   display: -webkit-box;
   display: -ms-flexbox;
-  display: flex; }
+  display: flex;
+  width: 98.4vw; }
 
 #upd_heading_picture {
   border-radius: 10px; }
@@ -388,4 +391,14 @@ ul.mm .sub1 li:hover .sub2 {
   -ms-flex-pack: justify;
   justify-content: space-between; }
 
+.modal-header {
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between; }
+
 /* start modal forms --------------------------------------------------------------------------------------------------------*/
+th.big-col {
+  width: 40px !important; }
+
+table#example {
+  table-layout: fixed; }

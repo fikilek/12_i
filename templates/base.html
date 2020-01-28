@@ -152,7 +152,7 @@
     
     
     {% if current_user.is_authenticated %}
-    
+    {% block pgm %}
     <!--page menu (pgm)-->
     <div id="page_menu_div" class="page_menu_div">
 
@@ -246,10 +246,10 @@
       </div>
       
     </div>
-    
+    {% endblock pgm %}
     {% endif %}
     
-    <!--todo: make flash dade away after a few seconds-->
+    <!--todo: make flash fade away after a few seconds-->
     <!--flask div-->
     {% block flash %}
     <div class="div-flash" id="div-flash">
@@ -273,10 +273,10 @@
     {% block content %}
     {% endblock content %}
     </div>
-    
-    
-    {% block unp_profile %}
-    <!-- Modal -->
+
+
+    <!-- Modals -->
+    {% block modals %}
     
       {# unp_profile_user_acc_details modal ---------------------------------------------------------------------------#}
       <div class="modal fade" id="unp_profile_user_acc_details_modal" tabindex="-1" role="dialog"
@@ -284,7 +284,12 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="unp_profile_title">user profile [acc no: ] [Acc opened: <strong>2020 01 22</strong>]</h5>
+              
+              <div class="custom-control custom-switch" title="account status ('active' or 'disabled')">
+                <input type="checkbox" class="custom-control-input" id="unp_acc_status_modal" value="">
+                <label class="custom-control-label" for="unp_acc_status_modal"></label>
+              </div>
+              
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -292,6 +297,11 @@
             <div class="modal-body">
               <div>
                 <form method="" action="#" id="" enctype="">
+                  <!--unp_id-->
+                  <div class="form-group">
+                    <input type="hidden" class="form-control form-control-sm" id="unp_id_modal"
+                           name="unp_id_modal" value="">
+                  </div>
                   <!--surname-->
                   <div class="form-group">
                     <!--<label for="unp_surname_modal" class="form-control-label">surname</label>-->
@@ -330,10 +340,10 @@
                   </div>
                   
                   <!--acc status-->
-                  <div class="form-group">
-                    <input type="hidden" class="form-control form-control-sm" id="unp_acc_status_modal"
-                           name="unp_dob_modal" placeholder="acc status" value="">
-                  </div>
+                  <!--<div class="form-group">-->
+                    <!--<input type="hidden" class="form-control form-control-sm" id="unp_acc_status_modal"-->
+                           <!--name="unp_dob_modal" placeholder="acc status" value="">-->
+                  <!--</div>-->
                   
                   <!--date acc created on-->
                   <div class="form-group">
@@ -354,7 +364,7 @@
       </div>
     
     
-    {% endblock unp_profile %}
+    {% endblock modals %}
     
 
     {% block scripts %}

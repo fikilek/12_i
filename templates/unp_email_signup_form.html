@@ -14,7 +14,7 @@
       <form action="{{ url_for('unp_email_signup') }}" method="post" novalidate >
         {{ form.hidden_tag() }}
         <fieldset class="form-group">
-          <legend class="border-bottom mb-4">Sign up (Register) for iREPS user experience</legend>
+          <legend class="border-bottom mb-4">Signup</legend>
           <div class="form-group">
             {{ form.email.label(class="form-control-label") }}
             {% if form.email.errors %}

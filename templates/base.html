@@ -113,19 +113,19 @@
               <li><a href="#">system tables</a><span class="rarrow">&#9656</span>
                 <ul class="sub2">
                   <!--transaction names-->
-                  <li><a href="{{ url_for('idt', op_code='syst', arc=' ', trc='trnn ')}}">trn names</a> </li>
+                  <li><a href="{{ url_for('idt', op_code='admin', arc='syst', trc='trnn')}}">trn names</a> </li>
                   <!--transaction states-->
-                  <li><a href="{{ url_for('idt', op_code='syst', arc=' ', trc='trst ')}}">trn states</a> </li>
+                  <li><a href="{{ url_for('idt', op_code='admin', arc='syst', trc='trst')}}">trn states</a> </li>
                   <!--asset category-->
-                  <li><a href="{{ url_for('idt', op_code='syst', arc=' ', trc='arcs ')}}">asset categories</a> </li>
+                  <li><a href="{{ url_for('idt', op_code='admin', arc='syst', trc='arcs')}}">asset categories</a> </li>
                 </ul>
               </li>
-              <li><a href="{{ url_for('idt', op_code='syst', arc=' ', trc='unps ')}}">users</a></li>
-              <li><a href="{{ url_for('idt', op_code='syst', arc=' ', trc='cast ')}}">cadastral</a></li>
-              <li><a href="{{ url_for('idt', op_code='syst', arc=' ', trc='mdev ')}}">mobile devices</a></li>
-              <li><a href="{{ url_for('idt', op_code='syst', arc=' ', trc='simc ')}}">simcards</a></li>
-              <li><a href="{{ url_for('idt', op_code='syst', arc=' ', trc='unpr ')}}">user roles</a></li>
-              <li><a href="{{ url_for('idt', op_code='syst', arc=' ', trc='unpp ')}}">permissions</a></li>
+              <li><a href="{{ url_for('idt', op_code='admin', arc='unps', trc=' ')}}">users</a></li>
+              <li><a href="{{ url_for('idt', op_code='admin', arc='cast', trc=' ')}}">cadastral</a></li>
+              <li><a href="{{ url_for('idt', op_code='admin', arc='mdev', trc=' ')}}">mobile devices</a></li>
+              <li><a href="{{ url_for('idt', op_code='admin', arc='simc', trc=' ')}}">simcards</a></li>
+              <li><a href="{{ url_for('idt', op_code='admin', arc='unpr', trc=' ')}}">user roles</a></li>
+              <li><a href="{{ url_for('idt', op_code='admin', arc='unpp', trc=' ')}}">permissions</a></li>
             </ul>
           </li>
         {% else %}
@@ -388,8 +388,8 @@
       <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
   
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+      <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>-->
+      <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>-->
       <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
       <script src="https://cdn.datatables.net/select/1.3.0/js/dataTables.select.min.js"></script>
   

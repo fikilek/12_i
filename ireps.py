@@ -433,6 +433,7 @@ def unp_signout():
 # arc is asset (register) category
 # trc is transaction code
 @app.route("/idt/<op_code>/<arc>/<trc>")
+@login_required
 def idt(op_code='', arc='', trc=''):
     return render_template("idt.html", op_code=op_code, arc=arc, trc=trc)
 
@@ -473,21 +474,25 @@ def knowledge_base():
 
 
 @app.route("/dbd_asts")
+@login_required
 def dbd_asts():
     return render_template("dbd_asts.html", )
 
 
 @app.route("/dbd_erfs")
+@login_required
 def dbd_erfs():
     return render_template("dbd_erfs.html")
 
 
 @app.route("/dbd_trns")
+@login_required
 def dbd_trns():
     return render_template("dbd_trns.html")
 
 
 @app.route("/dbd_unp")
+@login_required
 def dbd_unp():
     return render_template("dbd_unp.html")
 

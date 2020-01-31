@@ -2,6 +2,7 @@
 
   $ic_menu_backgroung: white;
   $ic_border: #CCC;
+  $btn_color: #b3b3b3;
 
 //global targets
   * {
@@ -14,6 +15,16 @@ ul {
 	background: white;
 	z-index: 1;
 }
+
+
+/* start common items-------------------------------------------------------------------------------------------------------*/
+.ireps_btn {
+	background: $btn_color;
+}
+
+/* end common items-------------------------------------------------------------------------------------------------------*/
+
+
 
 /* start navbar (main menu)-------------------------------------------------------------------------------------------------------*/
 
@@ -41,7 +52,8 @@ ul {
 }
 
 ul.mm {
-    margin: 2px;
+/*    margin: 2px; */
+    margin: 0px;
 }
 
 .div-mml ul {
@@ -150,15 +162,15 @@ ul.mm .sub1 li:hover .sub2 {
 	display: flex;
 	flex-direction: column;
 	border: 1px solid #b3b3b3;
-	margin: 0 5px 5px 5px ;
+	/*margin: 0 5px 5px 5px ;*/
 	flex-grow: 1;
+	width: inherit;
 }
 
 #upd_heading {
-	margin: 2px;
+	/*margin: 2px;*/
 	height: 120px;
 	display: flex;
-	width: 98.4vw;
 }
 
 #upd_heading_picture {
@@ -171,14 +183,15 @@ ul.mm .sub1 li:hover .sub2 {
 	border-radius: 10px;
 }
 
+/*
 .heading_stats {
 	height: 120px;
 	flex-grow: 1;
 }
-
+*/
 #upd_body {
 	/*border: 1px solid #b3b3b3;*/
-	margin: 0px 2px 2px 2px;
+	/*margin: 0px 2px 2px 2px;*/
 	flex-grow: 1;
 	display: flex;
 }
@@ -233,9 +246,11 @@ ul.mm .sub1 li:hover .sub2 {
 
 
 .heading_stats {
+	height: 120px;
+	flex-grow: 1;
 	display: grid;
 /*	grid-template-columns: repeat(auto-fit , minmax(200px, ifr)); */
-	grid-template-columns: 1fr 1fr 1fr 1fr;
+	grid-template-columns: 1fr 1fr 0.5fr 1fr 1fr 0.5fr 1fr 1fr;
 	grid-template-rows: 1fr;
 	width: 100%;
   border-radius: 10px;
@@ -311,6 +326,18 @@ ul.mm .sub1 li:hover .sub2 {
 	font-size: 20px;
 }
 
+div.upd_stats span {
+	font-size: small;
+}
+
+.upd_stats_percentages {
+	border-radius: 0 40px 40px 0;
+  border-right-color: blue;
+  border-top-color: blue;
+  border-bottom-color: blue;
+}
+
+
 .unp_profile {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
@@ -370,7 +397,7 @@ ul.mm .sub1 li:hover .sub2 {
 	.mbl, .mbr {
 	  height: auto;
 	  width: 50%;
-	  margin: 2px;
+	  /*margin: 2px;*/
 	  display: flex;
 	  flex-direction: column;
 	}
@@ -401,16 +428,16 @@ ul.mm .sub1 li:hover .sub2 {
     //justify-content: center;
     margin: auto;
     border: 1px solid $ic_border;
-    border-radius: 20px;
+    border-radius: 5px;
   }
 
 
   .ireps-form {
-    width: 500px;
+    /*width: 500px;*/
     height: auto;
     margin: 20px;
     border: 1px solid $ic_border;
-    border-radius: 15px;
+    border-radius: 5px;
     padding: 20px;
 		legend {
 			font-size: 20px;
@@ -452,10 +479,11 @@ ul.mm .sub1 li:hover .sub2 {
 
 /* start modal forms --------------------------------------------------------------------------------------------------------*/
 
-th.big-col{
-width:40px !important;
+table#idt {
+    table-layout: fixed;
 }
 
-table#example{
-table-layout:fixed;
+button, input {
+    overflow: visible;
+    width: inherit;
 }

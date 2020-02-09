@@ -206,7 +206,7 @@ ul.mm .sub1 li:hover .sub2 {
 }
 
 .unp_menu_btn {
-  font-size: 25px;
+  font-size: 20px;
   color: #b3b3b3;
   border: 0px;
   background: white;
@@ -486,4 +486,8 @@ table#idt {
 button, input {
     overflow: visible;
     width: inherit;
+}
+
+.ml3 {
+	display:flex;
 }

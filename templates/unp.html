@@ -21,7 +21,7 @@
               <!--unp profile-->
               <div>
                 <button id="ml2_unp_profile" class="unp_menu_btn" title="user profile">
-                  <a href="{{ url_for('unp_profile') }}">
+                  <a href="{{ url_for('unp', ml1='unp', ml2='profile') }}">
                     <i class="fas fa-address-card unp_fa_icon"></i>
                   </a>
                 </button>
@@ -30,7 +30,7 @@
               <!--unp stats-->
               <div>
                 <button id="ml2_unp_stats" class="unp_menu_btn" title="user stats">
-                  <a href="{{ url_for('unp_stats') }}">
+                  <a href="{{ url_for('unp', ml1='unp', ml2='stats') }}">
                     <i class="fas fa-database unp_fa_icon"></i>
                   </a>
                 </button>
@@ -39,7 +39,7 @@
               <!--logon history-->
               <div>
                 <button id="ml2_unp_logon_history" class="unp_menu_btn" title="logon history">
-                  <a href="{{ url_for('unp_logon_history') }}">
+                  <a href="{{ url_for('unp', ml1='unp', ml2='logon_history') }}">
                     <i class="fas fa-history unp_fa_icon"></i>
                   </a>
                 </button>
@@ -48,7 +48,7 @@
               <!--BoQ's (these are quantities for all transactions for a user)-->
               <div>
                 <button id="ml2_unp_boqs" class="unp_menu_btn" title="BoQ's">
-                  <a href="{{ url_for('unp_boqs') }}">
+                  <a href="{{ url_for('unp', ml1='unp', ml2='boqs') }}">
                     <i class="fas fa-weight unp_fa_icon"></i>
                   </a>
                 </button>
@@ -57,7 +57,7 @@
               <!--SMS's-->
               <div>
                 <button id="ml2_unp_smss" class="unp_menu_btn" title="text messages">
-                  <a href="{{ url_for('unp_smss') }}">
+                  <a href="{{ url_for('unp', ml1='unp', ml2='smss') }}">
                     <i class="fas fa-sms unp_fa_icon"></i>
                   </a>
                 </button>
@@ -66,7 +66,7 @@
               <!--emails-->
               <div>
                 <button id="ml2_unp_emails" class="unp_menu_btn" title="emails">
-                  <a href="{{ url_for('unp_emails') }}">
+                  <a href="{{ url_for('unp', ml1='unp', ml2='emails') }}">
                     <i class="fas fa-envelope unp_fa_icon"></i>
                   </a>
                 </button>

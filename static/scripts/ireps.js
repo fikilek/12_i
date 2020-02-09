@@ -276,92 +276,65 @@ $(document).ready(function() {
 
 		}
 
+
+
+//  start ireps assets *************************************************************************************************
+//  ********************************************************************************************************************
+
 //  create assets constructor
 		class Asts {
-			constructor(ml1 = '', ml2 = ''){
-				this.asts = []
-				if(ml1 == 'asts' && ml2 == ''){
-//  			use only ast and asf to construct asts. go to the db ast and asf tables and get all assets data.
-//		  	todo: go to the db ast and asf tables and get all assets data.
-					this.asts = [
-						new Ast().get_ast(),
-						new Ast().get_ast(),
-						new Ast().get_ast(),
-						new Ast().get_ast(),
-					]
-				}
-				if(ml1 == 'asts' && ml2 == 'em'){
-//  			use only ast and asf to construct asts. go to the db ast and asf tables and get all assets data.
-//		  	todo: go to the db ast and asf tables and get all assets data.
-					this.asts = [
-						new AstEm().get_ast(),
-						new AstEm().get_ast(),
-						new AstEm().get_ast(),
-						new AstEm().get_ast(),
-						new AstEm().get_ast(),
-						new AstEm().get_ast(),
-					]
-				}
-				else {
-//				todo: throw an error
-				}
+			constructor(ml2){
+				this.asts = new IdbAsts(ml2).set_asts().get_asts();
 			}
 			get_asts = () => this.asts;
-			get_asts_cols = create_dt_columns(this.asts)
+			get_asts_cols = () => {
+				return create_dt_columns(this.asts);
+			}
 		}
 
 	//create asset constructor (ast). this uses only ast and asf
 		class Ast {
-			constructor(asr_a01_id = '', ast_properties = ''){
+			constructor(asr_a01_id = ''){
 				this.asr_a01_id = asr_a01_id;
 				this.ast = {}
-//			if ast properties have been passed to the constructor, then use it to set this.ast, otherwise check if ast_id
-//      has been passed, if so, then call set_ast to get ast and asf data, then set this.ast
-				if(ast_properties){
-					this.ast = ast_properties;
-				} else if(this.asr_a01_id){
-					this.ast = set_ast(this.asr_a01_id);
-				}
 			}
-			set_ast = (ast_id) => {
+			set_ast = () => {
 //			go to ast, asf and ast_?? table and use ast_id to get ast data and set this.ast.
 //        todo: retrieve ast data from ast, asf and ast_?? tables
 //      this.ast = set this.ast with data from from ast, asf and ast_?? tables
 				this.ast = {
 //        common asset data
-					ast_common_data: {
-//					asset identity data
-						"ast_a01_id" : ast_id,
-						"ast_a02_uuid" : "ac20a762-e183-455f-a840-186efe5be79a",
-						"ast_a03_asset_no" : "", //if em. asset no wol be meter no
-						"ast_a04_barcode" : "",
-						"ast_a05_rfid" : "",
+//				asset identity data
+					"ast_a01_id" : this.asr_a01_id,
+					"ast_a02_uuid" : "ac20a762-e183-455f-a840-186efe5be79a",
+					"ast_a03_asset_no" : "", //if em. asset no wol be meter no
+					"ast_a04_barcode" : "",
+					"ast_a05_rfid" : "",
 
-	//        asset user interaction data
-						"ast_b01_created_by_unp_id" : 1,
-						"ast_b02_created_on_datetime" : "2019-06-14T08:45:45Z",
-						"ast_b03_updated_by_unp_id" : 1,
-						"ast_b04_updated_on_datetime" : "2019-06-14T08:45:45Z",
+//        asset user interaction data
+					"ast_b01_created_by_unp_id" : 1,
+					"ast_b02_created_on_datetime" : "2019-06-14T08:45:45Z",
+					"ast_b03_updated_by_unp_id" : 1,
+					"ast_b04_updated_on_datetime" : "2019-06-14T08:45:45Z",
 
-	//        asset properties data
-						"ast_c01_arc_id" : 2, //asset category is em
-						"ast_c02_ass_id" : 5, //asset state is in operation
-						"ast_c03_manufacture_amb_id" : 3,
+//        asset properties data
+					"ast_c01_arcd" : 'em', //asset category is em
+					"ast_c02_ass" : 'operation', //asset state is in operation
+					"ast_c03_manufacture_amb_id" : 3,
 
-	//				asset other data
-						"ast_d01_supplier_ten_id" : null,
-						"ast_d02_asset_verification_avs_id" : null,
-						"ast_d03_adr_id" : null, //current asset address
-					},
-					ast_finance_data: {
-						"asf_a01_id": "",
-						"asf_a02_purchase_order_no": "",
-						"asf_a03_cost_excl_vat": "",
-						"asf_a04_delivery_datetime": "",
-						"asf_a05_supplier_name": "" ,
-						"asf_a06_supplier_contact_person_name": "",
-						"asf_a07_supplier_contact_no": "",
-					}
+//				asset other data
+					"ast_d01_supplier_ten_id" : null,
+					"ast_d02_asset_verification_avs_id" : null,
+					"ast_d03_adr_id" : null, //current asset address
+
+//        asset finance
+					"asf_a01_id": "",
+					"asf_a02_purchase_order_no": "",
+					"asf_a03_cost_excl_vat": "",
+					"asf_a04_delivery_datetime": "",
+					"asf_a05_supplier_name": "" ,
+					"asf_a06_supplier_contact_person_name": "",
+					"asf_a07_supplier_contact_no": "",
 				}
 				return this;
 			}
@@ -370,25 +343,85 @@ $(document).ready(function() {
 
 	//create ast em and inherit ast
 		class AstEm extends Ast{
-		constructor(asr_a01_id = '', ast_properties = '', ast_technical = ''){
-			super(asr_a01_id, ast_properties);
-			if(ast_technical){
-				this.ast['ast_technical'] = ast_technical
-			} else if(this.asr_a01_id){
-				set_ast_technical(this.asr_a01_id)
+			constructor(asr_a01_id = ''){
+				super(asr_a01_id);
+	//			let super_ast = super(asr_a01_id);
+	//			super_ast.set_ast()
+			}
+			set_ast_em = () => {
+				this.set_ast();
+	//		go to ast_em table and use ast_id to get ast em technical data and set this.ast.
+	//    todo: retrieve ast_em data for the specified ast_id
+				const ast_technical = {
+					"ase_meter_phase": "one phase",
+					"ase_meter_type": "pre-paid",
+					"ase_seal_no": "123456789",
+				}
+				this.ast = Object.assign(this.ast, ast_technical);
+				return this;
 			}
 		}
-		set_ast_technical = (ast_id) => {
-//		go to ast_em table and use ast_id to get ast em technical data and set this.ast.
-//    todo: retrieve ast_em data for the specified ast_id
-			this.ast['ast_technical_data'] = {
-				"ase_meter_phase": "",
-				"ase_meter_type": "",
-				"ase_seal_no": "",
+
+	//create asset constructor (ast). this uses only ast and asf
+		class AstEmpty extends Ast {
+			constructor(){
+				super()
+				this.ast = {
+					"ast_a01_id" : "0",
+					"ast_a02_uuid" : "0",
+					"ast_a03_asset_no" : "0",
+					"ast_a04_barcode" : "0",
+					"ast_a05_rfid" : "0",
 			}
-			return this;
+				return this;
+			}
 		}
-	}
+
+//	creat ireps db object to for asts. pass menu level options
+		class IdbAsts {
+			constructor(ml2){
+				this.ml2 = ml2;
+				this.asts = [];
+			}
+			set_asts = () => {
+				if( this.ml2 == '' ){
+//  			use only ast and asf to construct asts. go to the db ast and asf tables and get all assets data.
+//		  	todo: go to the db ast and asf tables and get all assets data because no ml2 is supplied
+					this.asts =  [
+						new Ast(1).set_ast().get_ast(),
+						new Ast(2).set_ast().get_ast(),
+						new Ast(3).set_ast().get_ast(),
+						new Ast(4).set_ast().get_ast(),
+						new Ast(5).set_ast().get_ast(),
+						new Ast(6).set_ast().get_ast(),
+						new Ast(7).set_ast().get_ast(),
+					]
+				} else if ( this.ml2 == 'em')  {
+//  			use only ast and asf to construct asts. go to the db ast and asf tables and get all assets data.
+//		  	todo: go to the db ast and asf tables and get all assets data.
+					this.asts =   [
+						new AstEm(1).set_ast_em().get_ast(),
+						new AstEm(2).set_ast_em().get_ast(),
+						new AstEm(3).set_ast_em().get_ast(),
+						new AstEm(4).set_ast_em().get_ast(),
+						new AstEm(5).set_ast_em().get_ast(),
+						new AstEm(6).set_ast_em().get_ast(),
+						new AstEm(7).set_ast_em().get_ast(),
+					]
+				} else {
+					this.asts =   [
+//						new AstEm(1).set_ast_empty().get_ast(),
+						new AstEmpty().get_ast(),
+					]
+				}
+				return this;
+			}
+			get_asts = () => this.asts;
+		}
+
+//  ********************************************************************************************************************
+//  end ireps assets ***************************************************************************************************
+
 
 	//create mobile number (mn) constructor
 		const Mno = function(cell_no) {
@@ -595,30 +628,15 @@ $(document).ready(function() {
 							status : "show",
 							state : "enabled",
 						},
-						pgm_edit : {
+						pgm_view : {
 							id : "",
-							name : "pgm_edit",
+							name : "pgm_view",
 							description : "",
 							output : "" ,
 							status : "hide",
 							state : "enabled",
 						},
-						pgm_cancel : {
-							id : "",
-							name : "pgm_cancel",
-							description : "",
-							output : "" ,
-							status : "hide",
-							state : "enabled",
-						},
-						pgm_save : {
-							id : "",
-							name : "pgm_save",
-							description : "",
-							output : "" ,
-							status : "hide",
-							state : "disabled",
-						},
+
 
 
 	//				pmr menus
@@ -681,20 +699,611 @@ $(document).ready(function() {
 			}
 		}
 
+
+//  start ireps transactions *******************************************************************************************
+//  ********************************************************************************************************************
+
 	//create a transactions object
-		const Trns = function() {
-			const trns = [];
+		class Trns {
+//    dr is daterange which is an object with start date and end date
+//    asc is asset category ['bk', 'em', 'wm', 'pl', 'cb', 'cl']
+//    trn is transaction ['grv', rdg, pur, etc]
 
-		}
-
-	//create transaction object (trn) constructor
-		const Trn = function(trn_id) {
-			this.trn_id = trn_id;
-			this.trn_properties = {
-
+			constructor(dr, asc = '', trn = ''){  //todo: add dr and st to the arguments of the constructor
+//			trns is an array of transactions
+//      IdbTrns is an object use to go to the ireps trns table and get all requested transactions
+//      all objects starting with Idb are ireps database object that ae used ot interact with ireps db.
+				this.dr = dr;
+				this.asc = 'em';
+				this.trn = '';
+				this.trns = new IdbTrns(dr, asc. trn).set_trns(asc).get_trns();
 			}
-
+			get_trns = () => this.trns;
+			get_trns_cols = () => {
+				return create_dt_columns(this.trns);
+			}
 		}
+
+	//create transaction object (trn) constructor. trn never goes directly to the trn ireps database table.
+	//it always collects its data from IdbTrn. if IdbTrns does  not have, then IdbTrns will go to the trn db table and
+	//collect
+		class Trn {
+			constructor(trn_a01_id = ''){
+				this.trn_a01_id = trn_a01_id;
+				this.trn = {};
+			}
+			set_trn = (asc) => {
+				this.trn = {
+//        common trn data
+//				asset identity data
+					"trn_aa1_id": this.trn_a01_id,
+					"trn_aa2_uuid": "ac20a762-e183-455f-a840-186efe5be79a",
+
+					"trn_ab1_arc": asc,  //asset category
+					"trn_ab2_trn": "12grv",  //transaction name [grv
+					"trn_ab3_tst": "pending",  //transaction state [pending, submitted, qa_fail, qa_pass, qa_pending, no_access, arrangement]
+
+					"trn_ac1_ast_id": "", //id of the asset linked to the transaction
+					"trn_ac2_qa": "", //whether this is a qza transaction or not
+					"trn_ac3_form_id": "",
+					"trn_ac4_access": "",
+
+					"trn_ad1_server_created_by": "fikile kentane",
+					"trn_ad2_server_created_on_datetime": "2019-06-14T08:45:45Z",
+					"trn_ad3_server_updated_by": "sitha kentane",
+					"trn_ad4_server_updated_on_datetime": "2019-06-14T08:45:45Z",
+
+					"trn_ae1_mobile_device_updated_by": "fikile kentane",
+					"trn_ae2_mobile_device_updated_on_datetime": "2019-06-14T08:45:45Z",
+					"trn_ae3_mobile_device_updated_by": "siya kentane",
+					"trn_ae4_mobile_device_updated_on_datetime": "2019-06-14T08:45:45Z",
+
+				};
+				return this;
+			}
+			get_trn = () =>  this.trn
+		}
+
+//	create an object to connect to the db and get transactions. this should always be given daterange (dr)
+		class IdbTrns {
+			constructor(dr, asc, trn){
+//			todo: collect all the required data from the db using dr, asc and trn then assign to this.trns. there will be no need for set_trns, only get_trns will be needed.
+				this.dr = dr
+				this.trns = [];
+			}
+			set_trns = (asc) => {
+				this.trns = [
+					new Trn(1).set_trn(asc).get_trn(),
+					new Trn(2).set_trn(asc).get_trn(),
+					new Trn(3).set_trn(asc).get_trn(),
+					new Trn(5).set_trn(asc).get_trn(),
+					new Trn(6).set_trn(asc).get_trn(),
+					new Trn(7).set_trn(asc).get_trn(),
+				]
+				return this;
+			}
+			get_trns = () => this.trns;
+		}
+
+//	create form section config object
+		class TrnFormConfig {
+			constructor(){
+				this.form_sections = {};
+			}
+			set_form_sections = () => {
+				this.form_sections = new IdbFormSectionsConfig().get_fs(); //fsc stands for form sections configuration
+			}
+			get_form_section = (asc) => {
+				return this.form_sections(asc);
+			}
+		}
+
+//	create trn form sections configuration object. data for this object comes for the db
+		class IdbFormSectionsConfig {
+//    asc stands for asset category [bk, em, wm, pl, cb, tr]
+//		trc stands for transaction category [grv, alo, etc]
+			construction(asc = '', trc){
+//			todo: write code to collect dataty from the db table
+//      for now assume asc is em
+				this.fs = { //fs stands for form sections
+					em: {
+						"1_2_grv": {
+							metadata: '1',
+							np_customer_contact_details: '0',
+							jp_customer_contact_details: '0',
+							customer_adr: '0',
+							customer_acc: '0',
+							asset_adr: '1',
+							asset_technical_detail: '1',
+							asset_finance_detail: '1',
+							pre_paid_billing_detail: '1',
+							conventional_billing_detail: '1',
+							asset_commissioning: '0',
+							reading: '0',
+							token_purchase: '0',
+							meter_audit: '0',
+							access: '0',
+							unp_details: '1',
+						}, //from supplier to stores [12grv]
+						"2_1_ret": {
+							metadata: '1',
+							np_customer_contact_details: '0',
+							jp_customer_contact_details: '0',
+							customer_adr: '0',
+							customer_acc: '0',
+							asset_adr: '1',
+							asset_technical_detail: '1',
+							asset_finance_detail: '1',
+							pre_paid_billing_detail: '1',
+							conventional_billing_detail: '1',
+							asset_commissioning: '0',
+							reading: '0',
+							token_purchase: '0',
+							meter_audit: '0',
+							access: '0',
+							unp_details: '1',
+						},	//from stores back to supplier [21ret]
+ 						"2_3_alc": {
+							metadata: '1',
+							np_customer_contact_details: '0',
+							jp_customer_contact_details: '0',
+							customer_adr: '0',
+							customer_acc: '0',
+							asset_adr: '0',
+							asset_technical_detail: '1',
+							asset_finance_detail: '0',
+							pre_paid_billing_detail: '0',
+							conventional_billing_detail: '0',
+							asset_commissioning: '0',
+							reading: '0',
+							token_purchase: '0',
+							meter_audit: '0',
+							access: '0',
+							unp_details: '1',
+						}, //from stores to allocated [23alc]
+ 						"2_6_mis": {
+							metadata: '1',
+							np_customer_contact_details: '0',
+							jp_customer_contact_details: '0',
+							customer_adr: '0',
+							customer_acc: '0',
+							asset_adr: '0',
+							asset_technical_detail: '1',
+							asset_finance_detail: '0',
+							pre_paid_billing_detail: '0',
+							conventional_billing_detail: '0',
+							asset_commissioning: '0',
+							reading: '0',
+							token_purchase: '0',
+							meter_audit: '0',
+							access: '0',
+							unp_details: '1',
+						}, //from stores to missing
+						"2_7_rtd": {
+							metadata: '1',
+							np_customer_contact_details: '1',
+							jp_customer_contact_details: '1',
+							customer_adr: '1',
+							customer_acc: '1',
+							asset_adr: '1',
+							asset_technical_detail: '1',
+							asset_finance_detail: '0',
+							pre_paid_billing_detail: '1',
+							conventional_billing_detail: '1',
+							asset_commissioning: '0',
+							reading: '1',
+							token_purchase: '0',
+							meter_audit: '0',
+							access: '1',
+							unp_details: '1',
+						}, //from stores to retired
+						"3_2_una": {
+							metadata: '1',
+							np_customer_contact_details: '1',
+							jp_customer_contact_details: '1',
+							customer_adr: '1',
+							customer_acc: '1',
+							asset_adr: '1',
+							asset_technical_detail: '1',
+							asset_finance_detail: '0',
+							pre_paid_billing_detail: '1',
+							conventional_billing_detail: '1',
+							asset_commissioning: '0',
+							reading: '1',
+							token_purchase: '0',
+							meter_audit: '0',
+							access: '1',
+							unp_details: '1',
+						}, //from allocated to back stores
+						"3_4_ins": {
+							metadata: '1',
+							np_customer_contact_details: '1',
+							jp_customer_contact_details: '1',
+							customer_adr: '1',
+							customer_acc: '1',
+							asset_adr: '1',
+							asset_technical_detail: '1',
+							asset_finance_detail: '0',
+							pre_paid_billing_detail: '1',
+							conventional_billing_detail: '1',
+							asset_commissioning: '0',
+							reading: '1',
+							token_purchase: '0',
+							meter_audit: '0',
+							access: '1',
+							unp_details: '1',
+						}, //from allocated to installation
+						"3_8_rep": {
+							metadata: '1',
+							np_customer_contact_details: '1',
+							jp_customer_contact_details: '1',
+							customer_adr: '1',
+							customer_acc: '1',
+							asset_adr: '1',
+							asset_technical_detail: '1',
+							asset_finance_detail: '0',
+							pre_paid_billing_detail: '1',
+							conventional_billing_detail: '1',
+							asset_commissioning: '0',
+							reading: '1',
+							token_purchase: '0',
+							meter_audit: '0',
+							access: '1',
+							unp_details: '1',
+						}, //from allocated to repairs
+						"3_6_mis": {
+							metadata: '1',
+							np_customer_contact_details: '1',
+							jp_customer_contact_details: '1',
+							customer_adr: '1',
+							customer_acc: '1',
+							asset_adr: '1',
+							asset_technical_detail: '1',
+							asset_finance_detail: '0',
+							pre_paid_billing_detail: '1',
+							conventional_billing_detail: '1',
+							asset_commissioning: '0',
+							reading: '1',
+							token_purchase: '0',
+							meter_audit: '0',
+							access: '1',
+							unp_details: '1',
+						}, //from stores to missing [missing]
+						"4_3_uni": {
+							metadata: '1',
+							np_customer_contact_details: '1',
+							jp_customer_contact_details: '1',
+							customer_adr: '1',
+							customer_acc: '1',
+							asset_adr: '1',
+							asset_technical_detail: '1',
+							asset_finance_detail: '0',
+							pre_paid_billing_detail: '1',
+							conventional_billing_detail: '1',
+							asset_commissioning: '0',
+							reading: '1',
+							token_purchase: '0',
+							meter_audit: '0',
+							access: '1',
+							unp_details: '1',
+						}, //from field to store [uninstallation]
+						"4_4_com": {
+							metadata: '1',
+							np_customer_contact_details: '1',
+							jp_customer_contact_details: '1',
+							customer_adr: '1',
+							customer_acc: '1',
+							asset_adr: '1',
+							asset_technical_detail: '1',
+							asset_finance_detail: '0',
+							pre_paid_billing_detail: '1',
+							conventional_billing_detail: '1',
+							asset_commissioning: '0',
+							reading: '1',
+							token_purchase: '0',
+							meter_audit: '0',
+							access: '1',
+							unp_details: '1',
+						}, //from installation to commissionining
+						"4_6_mis": {
+							metadata: '1',
+							np_customer_contact_details: '1',
+							jp_customer_contact_details: '1',
+							customer_adr: '1',
+							customer_acc: '1',
+							asset_adr: '1',
+							asset_technical_detail: '1',
+							asset_finance_detail: '0',
+							pre_paid_billing_detail: '1',
+							conventional_billing_detail: '1',
+							asset_commissioning: '0',
+							reading: '1',
+							token_purchase: '0',
+							meter_audit: '0',
+							access: '1',
+							unp_details: '1',
+						},
+						"5_1_ins": {
+							metadata: '1',
+							np_customer_contact_details: '1',
+							jp_customer_contact_details: '1',
+							customer_adr: '1',
+							customer_acc: '1',
+							asset_adr: '1',
+							asset_technical_detail: '1',
+							asset_finance_detail: '0',
+							pre_paid_billing_detail: '1',
+							conventional_billing_detail: '1',
+							asset_commissioning: '0',
+							reading: '1',
+							token_purchase: '0',
+							meter_audit: '0',
+							access: '1',
+							unp_details: '1',
+						}, //in operation inspection
+						"5_r_rea": {
+							metadata: '1',
+							np_customer_contact_details: '1',
+							jp_customer_contact_details: '1',
+							customer_adr: '1',
+							customer_acc: '1',
+							asset_adr: '1',
+							asset_technical_detail: '1',
+							asset_finance_detail: '0',
+							pre_paid_billing_detail: '1',
+							conventional_billing_detail: '1',
+							asset_commissioning: '0',
+							reading: '1',
+							token_purchase: '0',
+							meter_audit: '0',
+							access: '1',
+							unp_details: '1',
+						}, //in operation meter reading
+						"5_p_pur": {
+							metadata: '1',
+							np_customer_contact_details: '1',
+							jp_customer_contact_details: '1',
+							customer_adr: '1',
+							customer_acc: '1',
+							asset_adr: '1',
+							asset_technical_detail: '1',
+							asset_finance_detail: '0',
+							pre_paid_billing_detail: '1',
+							conventional_billing_detail: '1',
+							asset_commissioning: '0',
+							reading: '1',
+							token_purchase: '0',
+							meter_audit: '0',
+							access: '1',
+							unp_details: '1',
+						}, //in operation purchase
+						"5_3_uni": {
+							metadata: '1',
+							np_customer_contact_details: '1',
+							jp_customer_contact_details: '1',
+							customer_adr: '1',
+							customer_acc: '1',
+							asset_adr: '1',
+							asset_technical_detail: '1',
+							asset_finance_detail: '0',
+							pre_paid_billing_detail: '1',
+							conventional_billing_detail: '1',
+							asset_commissioning: '0',
+							reading: '1',
+							token_purchase: '0',
+							meter_audit: '0',
+							access: '1',
+							unp_details: '1',
+						}, //from operation to allocated
+						"5_6_mis": {
+							metadata: '1',
+							np_customer_contact_details: '1',
+							jp_customer_contact_details: '1',
+							customer_adr: '1',
+							customer_acc: '1',
+							asset_adr: '1',
+							asset_technical_detail: '1',
+							asset_finance_detail: '0',
+							pre_paid_billing_detail: '1',
+							conventional_billing_detail: '1',
+							asset_commissioning: '0',
+							reading: '1',
+							token_purchase: '0',
+							meter_audit: '0',
+							access: '1',
+							unp_details: '1',
+						},
+						"5_m_mai": {
+							metadata: '1',
+							np_customer_contact_details: '1',
+							jp_customer_contact_details: '1',
+							customer_adr: '1',
+							customer_acc: '1',
+							asset_adr: '1',
+							asset_technical_detail: '1',
+							asset_finance_detail: '0',
+							pre_paid_billing_detail: '1',
+							conventional_billing_detail: '1',
+							asset_commissioning: '0',
+							reading: '1',
+							token_purchase: '0',
+							meter_audit: '0',
+							access: '1',
+							unp_details: '1',
+						},
+						"5_f_fwn": {
+							metadata: '1',
+							np_customer_contact_details: '1',
+							jp_customer_contact_details: '1',
+							customer_adr: '1',
+							customer_acc: '1',
+							asset_adr: '1',
+							asset_technical_detail: '1',
+							asset_finance_detail: '0',
+							pre_paid_billing_detail: '1',
+							conventional_billing_detail: '1',
+							asset_commissioning: '0',
+							reading: '1',
+							token_purchase: '0',
+							meter_audit: '0',
+							access: '1',
+							unp_details: '1',
+						},
+						"5_d_dcn": {
+							metadata: '1',
+							np_customer_contact_details: '1',
+							jp_customer_contact_details: '1',
+							customer_adr: '1',
+							customer_acc: '1',
+							asset_adr: '1',
+							asset_technical_detail: '1',
+							asset_finance_detail: '0',
+							pre_paid_billing_detail: '1',
+							conventional_billing_detail: '1',
+							asset_commissioning: '0',
+							reading: '1',
+							token_purchase: '0',
+							meter_audit: '0',
+							access: '1',
+							unp_details: '1',
+						},
+						"5_r_rcn": {
+							metadata: '1',
+							np_customer_contact_details: '1',
+							jp_customer_contact_details: '1',
+							customer_adr: '1',
+							customer_acc: '1',
+							asset_adr: '1',
+							asset_technical_detail: '1',
+							asset_finance_detail: '0',
+							pre_paid_billing_detail: '1',
+							conventional_billing_detail: '1',
+							asset_commissioning: '0',
+							reading: '1',
+							token_purchase: '0',
+							meter_audit: '0',
+							access: '1',
+							unp_details: '1',
+						},
+						"5_l_ala": {
+							metadata: '1',
+							np_customer_contact_details: '1',
+							jp_customer_contact_details: '1',
+							customer_adr: '1',
+							customer_acc: '1',
+							asset_adr: '1',
+							asset_technical_detail: '1',
+							asset_finance_detail: '0',
+							pre_paid_billing_detail: '1',
+							conventional_billing_detail: '1',
+							asset_commissioning: '0',
+							reading: '1',
+							token_purchase: '0',
+							meter_audit: '0',
+							access: '1',
+							unp_details: '1',
+						},
+						"6_2_rec": {
+							metadata: '1',
+							np_customer_contact_details: '1',
+							jp_customer_contact_details: '1',
+							customer_adr: '1',
+							customer_acc: '1',
+							asset_adr: '1',
+							asset_technical_detail: '1',
+							asset_finance_detail: '0',
+							pre_paid_billing_detail: '1',
+							conventional_billing_detail: '1',
+							asset_commissioning: '0',
+							reading: '1',
+							token_purchase: '0',
+							meter_audit: '0',
+							access: '1',
+							unp_details: '1',
+						},
+						"7_2_bac": {
+							metadata: '1',
+							np_customer_contact_details: '1',
+							jp_customer_contact_details: '1',
+							customer_adr: '1',
+							customer_acc: '1',
+							asset_adr: '1',
+							asset_technical_detail: '1',
+							asset_finance_detail: '0',
+							pre_paid_billing_detail: '1',
+							conventional_billing_detail: '1',
+							asset_commissioning: '0',
+							reading: '1',
+							token_purchase: '0',
+							meter_audit: '0',
+							access: '1',
+							unp_details: '1',
+						},
+						"7_6_mis": {
+							metadata: '1',
+							np_customer_contact_details: '1',
+							jp_customer_contact_details: '1',
+							customer_adr: '1',
+							customer_acc: '1',
+							asset_adr: '1',
+							asset_technical_detail: '1',
+							asset_finance_detail: '0',
+							pre_paid_billing_detail: '1',
+							conventional_billing_detail: '1',
+							asset_commissioning: '0',
+							reading: '1',
+							token_purchase: '0',
+							meter_audit: '0',
+							access: '1',
+							unp_details: '1',
+						},
+						"8_3_rep": {
+							metadata: '1',
+							np_customer_contact_details: '1',
+							jp_customer_contact_details: '1',
+							customer_adr: '1',
+							customer_acc: '1',
+							asset_adr: '1',
+							asset_technical_detail: '1',
+							asset_finance_detail: '0',
+							pre_paid_billing_detail: '1',
+							conventional_billing_detail: '1',
+							asset_commissioning: '0',
+							reading: '1',
+							token_purchase: '0',
+							meter_audit: '0',
+							access: '1',
+							unp_details: '1',
+						},
+						"8_6_mis": {
+							metadata: '1',
+							np_customer_contact_details: '1',
+							jp_customer_contact_details: '1',
+							customer_adr: '1',
+							customer_acc: '1',
+							asset_adr: '1',
+							asset_technical_detail: '1',
+							asset_finance_detail: '0',
+							pre_paid_billing_detail: '1',
+							conventional_billing_detail: '1',
+							asset_commissioning: '0',
+							reading: '1',
+							token_purchase: '0',
+							meter_audit: '0',
+							access: '1',
+							unp_details: '1',
+						},
+					},
+					wm: {
+
+					},
+				}
+				get_fs = this.fs;
+			}
+		}
+
+//  ********************************************************************************************************************
+//  end ireps transactions *********************************************************************************************
 
 //  helper functions that are private to ireps class
 //	create helper function to create columns of datatables
@@ -703,7 +1312,7 @@ $(document).ready(function() {
 			if(dt_data){
 				cols = Object.keys(dt_data[0]);
 				columns = cols.map((value, index) => {
-					return { 'data': value, 'title': value }
+					return { 'data': value, 'title': value };
 				});
 			} else (
 				columns = { 'data': 'empty', 'title': 'empty' }
@@ -718,7 +1327,8 @@ $(document).ready(function() {
 			Adr: Adr, //address object
 			Menu: Menu, //ireps menu object
 			MenuSystem: MenuSystem, //ireps menu system
-			Asts: Asts //assets
+			Asts: Asts, //assets
+			Trns: Trns, //transactions
 		}
 	})();
 
@@ -737,28 +1347,43 @@ $(document).ready(function() {
 //todo: add functionality to edit user role. this should be on the respective role card
 //todo: add functionality to delete user role. this should be on the respective role card
 
-	let dom_strings, set_unp_profile_acc, initialize_menus, get_unp_profile_acc, update_unp_pgm_on_save_or_cancel;
-	let update_unp_pgm_on_edit, hide_pgm, idt_column_map, ireps_pathname;
-
 	class IrepsPathname {
+
 		constructor(){
 			this.pathname = location.pathname;
+			this.pathname_parts = this.pathname.split('/'); //pnp is pathname_parts
+			this.npp = ''; //normalised_pathname_parts is npp
 			this.path = '';
 		}
+
 		set_path = () => {
-			const pathname_parts = this.pathname.split('/');
-			if(pathname_parts[1] === 'idt'){
-				if(this.rest_of_pathname_parts_empty(pathname_parts)){ //pathname_parts [2] [3] [4] and [5]	are all empty
-					this.path = pathname_parts[2];
+			this.pathname_parts = this.pathname.split('/');
+			if(this.pathname_parts[1] === 'idt'){
+				if(this.rest_of_pathname_parts_empty(this.pathname_parts)){ //pathname_parts [2] [3] [4] and [5]	are all empty
+					this.path = this.pathname_parts[2];
 				} else {  //pathname_parts [2] [3] [4] and [5]	are NOT all empty
-					this.path = this.make_path(pathname_parts);
+					this.path = this.make_path(this.pathname_parts);
 				}
 			} else {
-				this.path = pathname_parts[1];
+				this.path = this.pathname_parts[1];
 			}
 			return this;
 		}
+
 		get_path = () => this.path;
+
+		set_npp = () => {
+			if(this.pathname_parts[1] === 'idt'){
+				//  delete the idt part
+				this.pathname_parts.splice(this.pathname_parts.indexOf('idt'),1);
+			}
+			this.npp = this.pathname_parts;
+			return this;
+		}
+
+		get_npp = () => this.npp;
+
+		get_ml1 = () => this.pathname_parts[2];
 
 		make_path = (pn_parts) => {  // pn_parts is pathname parts
 			let path = pn_parts[2]; //ml1
@@ -783,12 +1408,19 @@ $(document).ready(function() {
 			return true;
 		}
 
+		normalise_pnp = () => {
+			this.pathname_parts.forEach((cv, index, ar) => { //cv is current_value
+				cv =='%20'? ar[index] = '': cv = cv ;
+			})
+			return this;
+		}
+
+		get_pnp = () => this.pathname_parts;
+
 	}
 
-
-
-
-	dom_strings = {
+	const dom_strings = {
+//	unp profile acc
 		unp_surname: "#unp_surname",
 		unp_name: "#unp_name",
 		unp_email_adr: "#unp_email_adr",
@@ -815,9 +1447,20 @@ $(document).ready(function() {
 		unp_acc_created_on_datetime_modal: "#unp_acc_created_on_datetime_modal",
 		unp_profile_user_acc_details_modal_submit_btn: "#unp_profile_user_acc_details_modal_submit_btn",
 
+//  menu level 1 (ml1)
 		ml1_ireps: "#ml1_ireps",
-		page_menu_div: "#page_menu_div",
+		ml1_dbd: "#ml1_dbd",
+		ml1_asts: "#ml1_asts",
+		ml1_trns: "#ml1_trns",
+		ml1_wos: "#ml1_wos",
+		ml1_knbs: "#ml1_knbs",
+		ml1_admin: "#ml1_admin",
+		ml1_signup: "#ml1_signup",
+		ml1_signin: "#ml1_signin",
+		ml1_signout: "#ml1_signout",
+		ml1_unp: "#ml1_unp",
 
+//  menu level 2 (ml2)
 		ml2_unp_profile: "#ml2_unp_profile",
 		ml2_unp_stats: "#ml2_unp_stats",
 		ml2_unp_logon_history: "#ml2_unp_logon_history",
@@ -825,21 +1468,29 @@ $(document).ready(function() {
 		ml2_unp_smss: "#ml2_unp_smss",
 		ml2_unp_emails: "#ml2_unp_emails",
 
-		pgm_edit: "#pgm_edit",
-		pgm_cancel: "#pgm_cancel",
-		pgm_save: "#pgm_save",
+//	menu level 4 (ml4)
+//  ml4 left
+		pgm_page_title: "#pgm_page_title",
 		pgm_daterange: "#pgm_daterange",
-//		pgm_view: "pgm_view",
-//		pgm_history: "",
+		pgm_view: "#pgm_view", // view will also show history
+		pgm_smss: "#pgm_smss",
+		pgm_emails: "#pgm_emails",
+
+//  ml4 right
 		pgm_copy: "#pgm_copy",
 		pgm_excel: "#pgm_excel",
 		pgm_pdf: "#pgm_pdf",
 		pgm_csv: "#pgm_csv",
 		pgm_print: "#pgm_print",
-		pgm_page_title: "#pgm_page_title",
+
+
+//	menu level 5 (ml5) these are modal menus
+
+		page_menu_div: "#page_menu_div",
+
 	}
 
-	idt_columns_map = () => {
+	const idt_columns_map = () => {
 		columns_map = new Map();
 
 //	column names for unp_logon_history dt
@@ -879,7 +1530,7 @@ $(document).ready(function() {
 		return columns_map;
 	}
 
-	initialize_menus = function(ms) {
+	const initialize_menus = function(ms) {
 		let loaded_file;
 //  loop through ml1, ml2 and pgm. in each case loop though the individual menus, check the status and use it to
 //  show/hide and enable/disable menus.
@@ -946,7 +1597,7 @@ $(document).ready(function() {
 //START unp profile
 //**********************************************************************************************************************
 
-	set_unp_profile_acc = function(unp) {
+	const set_unp_profile_acc = function(unp) {
 //
 //		let email_adr, email_label, email_verified, mobile_no, mobile_no_label, mobile_no_verified , acc_status_options;
 
@@ -997,7 +1648,7 @@ $(document).ready(function() {
 
 	}
 
-	get_unp_profile_acc = function(){
+	const get_unp_profile_acc = function(){
 		return {
 			unp_id: document.querySelector(dom_strings.unp_id).innerText.trim(),
 			surname: document.querySelector(dom_strings.unp_surname).innerText.trim(),
@@ -1013,7 +1664,7 @@ $(document).ready(function() {
 		}
 	}
 
-	set_unp_profile_modal = function(unp_profile_acc_data) {
+	const set_unp_profile_modal = function(unp_profile_acc_data) {
 		document.querySelector(dom_strings.unp_id_modal).value = unp_profile_acc_data.unp_id;
 		document.querySelector(dom_strings.unp_surname_modal).value = unp_profile_acc_data.surname;
 		document.querySelector(dom_strings.unp_name_modal).value = unp_profile_acc_data.name;
@@ -1025,7 +1676,7 @@ $(document).ready(function() {
 		document.querySelector(dom_strings.unp_acc_created_on_datetime_modal).value = unp_profile_acc_data.acc_created_on_datetime;
 	}
 
-	get_unp_profile_modal = function() {
+	const get_unp_profile_modal = function() {
 		return {
 			unp_id: document.querySelector(dom_strings.unp_id_modal).value.trim(),
 			surname: document.querySelector(dom_strings.unp_surname_modal).value.trim(),
@@ -1039,7 +1690,7 @@ $(document).ready(function() {
 		}
 	}
 
-	set_unp_acc_status = status => {
+	const set_unp_acc_status = status => {
 		if(status == 'active') {
 			$(dom_strings.unp_acc_status_modal)[0].checked = true;
 			$(dom_strings.unp_acc_status_modal)[0].parentNode.children[1].innerText = 'active';
@@ -1051,12 +1702,12 @@ $(document).ready(function() {
 		}
 	}
 
-	show_unp_profile_acc_modal = function() {
+	const show_unp_profile_acc_modal = function() {
 		$(dom_strings.unp_profile_user_acc_details_modal).modal('show');
 
 	}
 
-	hide_unp_profile_acc_modal = function() {
+	const hide_unp_profile_acc_modal = function() {
 		$(dom_strings.unp_profile_user_acc_details_modal).modal('hide');
 
 	}
@@ -1067,50 +1718,57 @@ $(document).ready(function() {
 
 
 //**********************************************************************************************************************
-//START unp logon history
+//START Idt
 //**********************************************************************************************************************
 //todo: get all rows to display row numbers
-//the method create_dt is used to create ireps datatable
 	class Idt {
 		constructor(cols, data){
 			this.cols = cols;
 			this.data = data;
 			this.dt_instance = $('#idt').DataTable({
+				select: 'single',
 	      "columns": this.cols,
 	      "data": this.data,
-	      "dom": '<"top"<"pml"><"pmr"B>>>rt <"bottom"lip>',
-	      "autoWidth": true,
-			"initComplete": (settings, json) => {
+	      "dom": '<"top"<"pmrb"B>>rt <"bottom"lip>',
+				"initComplete": (settings, json) => {
 
 	        //create the input search boxes at the top of the datatable on a row (tr) below thead.
 	        //this is done by cloning tr of thead and append it to same thead of the datatable (#ireps_dt)
 	        $('#idt thead tr').clone(false).appendTo( '#idt thead' );
 	        $('#idt thead tr:eq(1) th').each( function () {
-	            let title = idt_columns_map().get($(this).text().trim());
-	            $(this).html( '<input class="col_search" type="text" placeholder=" '+title+' " />' );
+            let title = idt_columns_map().get($(this).text().trim());
+            $(this).html( '<input class="col_search" type="text" placeholder=" '+title+' " />' );
 	        });
 
 	        // Apply the search. this search function actually filters the column for a value in the input box
 	        let self = this;
-
-//					self.dt_instance.columns().every(function(key, value) {
-//		//				const header_title = idt_columns_map().get($(self.dt_instance.column(key).header()).text().trim());
-//		//				$(self.dt_instance.column(key).header()).text( header_title );
-//						$(self.dt_instance.column(key).header()).text(idt_columns_map().get($(self.dt_instance.column(key).header()).text().trim()));
-//					})
-
-
 	        $('#idt thead').on('keyup change', '.col_search', function () {
-	            self.dt_instance.column( $(this).parent().index() ).search( this.value ).draw();
+            self.dt_instance.column( $(this).parent().index() ).search( this.value ).draw();
 	        });
+
 				},
 	    });
+
+			//  respond when a row is selected
+			this.dt_instance.on( 'select', function ( e, dt, type, indexes ) {
+				const npp = new IrepsPathname().set_npp().get_npp();
+				if(npp[1] === 'asts' || npp[1] === 'trns' || npp[1] === "unp_boqs"){
+					$('#pgm_view').show();
+				} else {
+					$('#pgm_view').hide();
+				}
+			});
+
+			//  respond when a row is deselcted
+			this.dt_instance.on( 'deselect', function ( e, dt, type, indexes ) {
+				$('#pgm_view').hide();
+			});
+
 		}
+
 		set_cols = (idt_columns_map) => {
 			let self = this;
 			self.dt_instance.columns().every(function(key, value) {
-//				const header_title = idt_columns_map().get($(self.dt_instance.column(key).header()).text().trim());
-//				$(self.dt_instance.column(key).header()).text( header_title );
 				$(self.dt_instance.column(key).header()).text(idt_columns_map().get($(self.dt_instance.column(key).header()).text().trim()));
 			})
 			return this;
@@ -1119,8 +1777,18 @@ $(document).ready(function() {
 
 
 //**********************************************************************************************************************
-//END unp logon history
+//END Idt
 //**********************************************************************************************************************
+
+	const table_empty_flash = (path) => {
+			$('#div-flash').append(
+				'<div class="alert alert-dismissible alert-warning fade show">'+
+	        '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+	        '  <span aria-hidden="true">×</span>'+
+	        '</button>'+
+	        ' '+path+ ' table empty'+
+        '</div>')
+	}
 
 
 	return {
@@ -1135,13 +1803,13 @@ $(document).ready(function() {
 		set_unp_acc_status: set_unp_acc_status,
 		Idt: Idt,
 		idt_columns_map: idt_columns_map,
-		ireps_pathname: ireps_pathname,
 		IrepsPathname: IrepsPathname,
+		table_empty_flash: table_empty_flash,
 	}
 
 })(); //uuc
 
-//this is the unp data controller. all unp properties and methods will be here. this represents a unp object.
+	//this is the unp data controller. all unp properties and methods will be here. this represents a unp object.
 	const unp_data_controller = (function(app){
 //instantiate a unp object
 	const user_id = 8;
@@ -1167,246 +1835,158 @@ $(document).ready(function() {
 		.set_logon_history()
 		.set_boqs();
 	const menu_system = new app.MenuSystem().set_ms();
+	const Asts = app.Asts;
+	const Trns = app.Trns;
 	return {
 		user: user,
 		ms: menu_system,
+		Asts: Asts,
+		Trns: Trns
 	}
 
 })(ireps); //udc
 
-//this is the controller for the events generated in the unp module
-//uuc : unp user interface controller (ui controller)
-//udc : unp data controller. this is where all unp data is stored.
+	//this is the controller for the events generated in the unp module
+	//uuc : unp user interface controller (ui controller)
+	//udc : unp data controller. this is where all unp data is stored.
 	(function(uuc, udc) {
 
-	//get dom strings uuc
+		//get dom strings uuc
 		const dom = uuc.dom_strings;
 
-	//get user from udc
+		//get user from udc
 		const unp = udc.user;
 
-	//get menu system from udc
+		//get menu system from udc
 		const ms = udc.ms.get_menus();
 
-	//initialize menus on the ui
+		//initialize menus on the ui
 		uuc.initialize_menus(ms);
 
-//get pathname
-		const path = new uuc.IrepsPathname().set_path().get_path()
+		//get pathname
+		//		const path = new uuc.IrepsPathname().set_path().get_path()
+		const path = '';
+		const pnp = new uuc.IrepsPathname().normalise_pnp().get_pnp() //pnp is pathname parts
+		const ml1 = pnp[1];
+		const ml2 = pnp[2];
+		const ml3 = pnp[3];
+		if(ml1 === 'ireps'){
 
-	//**********************************************************************************************************************
-	//START initialise dom in unp profile
-	//**********************************************************************************************************************
+		} else if (ml1 === 'dbd'){
 
-	//set unp profile data on the ui
-		if(path == 'unp_profile'){
-			uuc.set_unp_profile_acc(unp);
+		} else if (ml1 === 'asts'){
 
-			//set unp profile stats
-			//todo: code to set unp stats
+			const asts = new udc.Asts(ml2);
+			const data = asts.get_asts();
+			const cols = asts.get_asts_cols();
+			const asts_dt = new uuc.Idt(cols, data).set_cols(uuc.idt_columns_map);
 
-			//set unp profile picture
-			//todo: code to set unp picture
+		} else if (ml1 === 'trns'){
 
+			const trns = new udc.Trns();
+			const data = trns.get_trns();
+			const cols = trns.get_trns_cols();
+			const trns_dt = new uuc.Idt(cols, data).set_cols(uuc.idt_columns_map);
 
-			//setup event listeners for unp profile
-			(function() {
-			//	unp profile acc - edit
-			//  display unp edit user profile modal on the click of edit modal btn
-					document.querySelector(dom.unp_profile_data_edit_btn).addEventListener("click", function(){
-						uuc.show_unp_profile_acc_modal();
-					})
+		} else if (ml1 === 'wos'){
 
-			//	take action and prepare data to display on the modal. respond to modal show event
-					$(dom.unp_profile_user_acc_details_modal).on('show.bs.modal', function (e) {
-						uuc.set_unp_profile_modal(uuc.get_unp_profile_acc());
-					})
+		} else if (ml1 === 'knb'){
 
-			//	take action and prepare to save modal data
-					$(dom.unp_profile_user_acc_details_modal).on('hide.bs.modal', function (e) {
-			//    todo: clean up when the modal hides
-					})
+		} else if (ml1 === 'admin'){
 
-			//  submit changes made on the unp profile acc modal
-					document.querySelector(dom.unp_profile_user_acc_details_modal_submit_btn).addEventListener("click", function(e){
-						e.preventDefault();
-			//		get unp profile acc data from a modified modal form and update unp at udc
-						unp.set_unp_details(uuc.get_unp_profile_modal())
-			//		hide unp profile scc modal
-						uuc.hide_unp_profile_acc_modal();
-			//		update uuc with new unp data
-						uuc.set_unp_profile_acc(unp);
-					})
+		} else if (ml1 === 'unp'){
 
+			if(ml2 === 'profile'){
 
+				uuc.set_unp_profile_acc(unp);
+				//set unp profile stats
+				//todo: code to set unp stats
+				//set unp profile picture
+				//todo: code to set unp picture
+				//setup event listeners for unp profile
+				(function() {
+				//	unp profile acc - edit
+				//  display unp edit user profile modal on the click of edit modal btn
+						document.querySelector(dom.unp_profile_data_edit_btn).addEventListener("click", function(){
+							uuc.show_unp_profile_acc_modal();
+						})
 
-			//  unp profile nok (next of kin) - there will only be one nok
-			//  todo: write event handler for adding a new nok. nok data will be displayed in a modal form like unp profile acc modal
+				//	take action and prepare data to display on the modal. respond to modal show event
+						$(dom.unp_profile_user_acc_details_modal).on('show.bs.modal', function (e) {
+							uuc.set_unp_profile_modal(uuc.get_unp_profile_acc());
+						})
 
-			//  todo: write event handler for editing a nok
+				//	take action and prepare to save modal data
+						$(dom.unp_profile_user_acc_details_modal).on('hide.bs.modal', function (e) {
+				//    todo: clean up when the modal hides
+						})
 
-			//  todo: write event handler tp delete a nok
-
-			//  unp profile role (user roles) - there may be more than  one role per user
-			//  todo: write event handler for adding a new user role. user role data will be displayed in a modal form
-
-			//  todo: write event handler for editing a user role
-
-			//  todo: write event handler tp delete a user role
-
-					document.querySelector(dom.unp_acc_status_modal).addEventListener("click", function(e){
-						uuc.set_unp_acc_status(this.checked == true ? 'active' : 'disabled')
-					})
-
-
-
-
-					document.querySelector(dom.ml2_unp_profile).addEventListener("click", function(){
-						console.log("profile");
-					})
-
-					document.querySelector(dom.ml2_unp_stats).addEventListener("click", function(){
-						console.log("stats");
-					})
-
-				  document.querySelector(dom.ml2_unp_logon_history).addEventListener("click", function(){
-						console.log("history");
-					})
-
-				  document.querySelector(dom.ml2_unp_boqs).addEventListener("click", function(){
-						console.log("BoQ's");
-					})
-
-				  document.querySelector(dom.ml2_unp_smss).addEventListener("click", function(){
-						console.log("sms's");
-					})
-
-				  document.querySelector(dom.ml2_unp_emails).addEventListener("click", function(){
-						console.log("emails");
-					})
+				//  submit changes made on the unp profile acc modal
+						document.querySelector(dom.unp_profile_user_acc_details_modal_submit_btn).addEventListener("click", function(e){
+							e.preventDefault();
+				//		get unp profile acc data from a modified modal form and update unp at udc
+							unp.set_unp_details(uuc.get_unp_profile_modal())
+				//		hide unp profile scc modal
+							uuc.hide_unp_profile_acc_modal();
+				//		update uuc with new unp data
+							uuc.set_unp_profile_acc(unp);
+						})
 
 
 
+				//  unp profile nok (next of kin) - there will only be one nok
+				//  todo: write event handler for adding a new nok. nok data will be displayed in a modal form like unp profile acc modal
+
+				//  todo: write event handler for editing a nok
+
+				//  todo: write event handler tp delete a nok
+
+				//  unp profile role (user roles) - there may be more than  one role per user
+				//  todo: write event handler for adding a new user role. user role data will be displayed in a modal form
+
+				//  todo: write event handler for editing a user role
+
+				//  todo: write event handler tp delete a user role
+
+						document.querySelector(dom.unp_acc_status_modal).addEventListener("click", function(e){
+							uuc.set_unp_acc_status(this.checked == true ? 'active' : 'disabled')
+						})
+
+					})();
+
+			} else if (ml2 === 'stats'){
+
+			} else if (ml2 === 'logon_history'){
+
+				//to initialise dom for unp logon history, the following are needed:
+				//  1. column names for the unp logon history datatable. this comes from udc.
+				//  3. rows data for the unp logon history datatable. this comes from udc.
+				const cols = unp.get_logon_history_cols();
+				const data = unp.get_logon_history();
+				const ulh = new uuc.Idt(cols, data).set_cols(uuc.idt_columns_map);
+
+			} else if (ml2 === 'boqs'){
+
+				//to initialise dom for unp boqs, the following are needed:
+				//  1. column names for boqs datatable. this comes from udc.
+				//  3. rows data for the boqs datatable. this comes from udc.
+				const cols = unp.get_boqs_cols();
+				const data = unp.get_boqs_data();
+				const uboqs = new uuc.Idt(cols, data ).set_cols(uuc.idt_columns_map);
+
+			} else if (ml2 === 'smss'){
 
 
-				})();
+			} else if (ml2 === 'email'){
 
-		}
 
-	//**********************************************************************************************************************
-	//END initialise dom in unp profile
-	//**********************************************************************************************************************
+			}
 
-	//**********************************************************************************************************************
-	//START initialise dom unp logon history
-	//**********************************************************************************************************************
-	//first check if 'unp_logon_history' is the pathname
-		if(path == 'unp_logon_history'){
-		//to initialise dom for unp logon history, the following are needed:
-		//  1. column names for the unp logon history datatable. this comes from udc.
-		//  3. rows data for the unp logon history datatable. this comes from udc.
-				const ulh = new uuc.Idt(unp.get_logon_history_cols(), unp.get_logon_history()).set_cols(uuc.idt_columns_map);
-		}
-	//**********************************************************************************************************************
-	//END initialise dom unp logon history
-	//**********************************************************************************************************************
+		} else {
 
-	//**********************************************************************************************************************
-	//START initialise dom unp boqs
-	//**********************************************************************************************************************
-	//first check if 'unp_boqs' is the pathname
-		if(path == 'unp_boqs'){
-		//to initialise dom for unp boqs, the following are needed:
-		//  1. column names for boqs datatable. this comes from udc.
-		//  3. rows data for the boqs datatable. this comes from udc.
-			const cols = unp.get_boqs_cols();
-			const data = unp.get_boqs_data();
-			const uboqs = new uuc.Idt(cols, data ).set_cols(uuc.idt_columns_map);
-		}
-	//**********************************************************************************************************************
-	//END initialise dom unp logon history
-	//**********************************************************************************************************************
-
-	//**********************************************************************************************************************
-	//START initialise dom asts
-	//**********************************************************************************************************************
-	//first check if 'asts' is the pathname
-		if(path == 'asts'){
+			//  todo: throw an error
 
 		}
-
-		if(path == 'asts_em'){
-
-		}
-
-//		if(uuc.ireps_pathname.pathname == '/unp_asts'){
-		//to initialise dom for asts, the following are needed:
-		//  1. column names for asts datatable. this comes from udc.
-		//  3. rows data for the asts datatable. this comes from udc.
-
-//			const asts = new udc.Asts()
-//			const cols = asts.get_asts_cols();
-//			const data = asts.get_asts_data();
-//			const asts = new uuc.Idt(cols, data ).set_cols(uuc.idt_columns_map);
-//		}
-	//**********************************************************************************************************************
-	//END initialise dom asts
-	//**********************************************************************************************************************
-
-	//setup event listeners
-		(function() {
-
-	//	event listeners for ml1 buttons
-			document.querySelector(dom.ml1_ireps).addEventListener("click", function(e){
-				console.log("ml1_ireps");
-			})
-
-
-	//	event listeners for pgm buttons
-
-			document.querySelector(dom.pgm_page_title).addEventListener("click", function(){
-		    alert("title");
-			})
-
-			document.querySelector(dom.pgm_daterange).addEventListener("click", function(){
-		    alert("daterange");
-
-			})
-
-	//		document.querySelector(dom.pgm_view).addEventListener("click", function(){
-	//
-	//		})
-	//
-	//		document.querySelector(dom.pgm_history).addEventListener("click", function(){
-	//
-	//		})
-
-			document.querySelector(dom.pgm_copy).addEventListener("click", function(){
-		    alert("copy");
-
-			})
-
-			document.querySelector(dom.pgm_excel).addEventListener("click", function(){
-		    alert("excel");
-
-			})
-
-			document.querySelector(dom.pgm_pdf).addEventListener("click", function(){
-		    alert("pdf");
-
-			})
-
-			document.querySelector(dom.pgm_csv).addEventListener("click", function(){
-		    alert("csv");
-
-			})
-
-			document.querySelector(dom.pgm_print).addEventListener("click", function(){
-		    alert("printer");
-
-			})
-
-		})();
 
 		console.log("ireps has started");
 

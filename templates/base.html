@@ -38,64 +38,92 @@
               <li><a href="{{ url_for('dbd_unp')}}">users</a> </li>
           </ul>
         </li>
-        <li><a href ="{{ url_for('idt', op_code='asts', arc=' ', trc=' ')}}">assets</a><span class="darrow">&#9660</span>
+        <li><a href ="{{ url_for('idt', ml1='asts', ml2=' ', ml3=' ')}}">assets</a><span class="darrow">&#9660</span>
           <ul class="sub1">
-            <li><a href="{{ url_for('idt', op_code='asts', arc='bk', trc=' ')}}">kiosks/boxes</a> </li>
-            <li><a href="{{ url_for('idt', op_code='asts', arc='em', trc=' ')}}">electricity meters</a> </li>
-            <li><a href="{{ url_for('idt', op_code='asts', arc='pl', trc=' ')}}">poles</a> </li>
-            <li><a href="{{ url_for('idt', op_code='asts', arc='tr', trc=' ')}}">transformers</a> </li>
-            <li><a href="{{ url_for('idt', op_code='asts', arc='cl', trc=' ')}}">cables</a> </li>
-            <li><a href="{{ url_for('idt', op_code='asts', arc='cb', trc=' ')}}">circuit breakers</a> </li>
+            <li><a href="{{ url_for('idt', ml1='asts', ml2='bk', ml3=' ')}}">kiosks/boxes</a> </li>
+            <li><a href="{{ url_for('idt', ml1='asts', ml2='em', ml3=' ')}}">electricity meters</a> </li>
+            <li><a href="{{ url_for('idt', ml1='asts', ml2='pl', ml3=' ')}}">poles</a> </li>
+            <li><a href="{{ url_for('idt', ml1='asts', ml2='tr', ml3=' ')}}">transformers</a> </li>
+            <li><a href="{{ url_for('idt', ml1='asts', ml2='cl', ml3=' ')}}">cables</a> </li>
+            <li><a href="{{ url_for('idt', ml1='asts', ml2='cb', ml3=' ')}}">circuit breakers</a> </li>
           </ul>
         </li>
-        <li><a href="{{ url_for('idt', op_code='trns', arc=' ', trc=' ')}}">transactions</a><span class="darrow">&#9660</span>
+        <li><a href="{{ url_for('idt', ml1='trns', ml2=' ', ml3=' ')}}">transactions</a><span class="darrow">&#9660</span>
           <ul class="sub1">
-              <li><a href="{{ url_for('idt', op_code='trns', arc='bk', trc=' ')}}">kiosk/box</a><span class="rarrow">&#9656</span>
+              <li><a href="{{ url_for('idt', ml1='trns', ml2='bk', ml3=' ')}}">kiosk/box</a><span class="rarrow">&#9656</span>
                 <ul class="sub2">
-                  <li><a href="{{ url_for('idt', op_code='trns', arc='bk', trc='ins')}}">installation</a></li>
-                  <li><a href="{{ url_for('idt', op_code='trns', arc='bk', trc='com')}}">commissioning</a></li>
-                  <li><a href="{{ url_for('idt', op_code='trns', arc='bk', trc='mtc')}}">maintenance</a></li>
+                  <li><a href="{{ url_for('idt', ml1='trns', ml2='bk', ml3='ins')}}">installation</a></li>
+                  <li><a href="{{ url_for('idt', ml1='trns', ml2='bk', ml3='com')}}">commissioning</a></li>
+                  <li><a href="{{ url_for('idt', ml1='trns', ml2='bk', ml3='mtc')}}">maintenance</a></li>
                 </ul>
               </li>
-              <li><a href="{{ url_for('idt', op_code='trns', arc='em', trc=' ')}}">electricity meters</a><span class="rarrow">&#9656</span>
+              <li><a href="{{ url_for('idt', ml1='trns', ml2='em', ml3=' ')}}">electricity meters</a><span class="rarrow">&#9656</span>
                 <ul class="sub2">
-                  <li><a href="{{ url_for('idt', op_code='trns', arc='em', trc='ins')}}">installation</a></li>
-                  <li><a href="{{ url_for('idt', op_code='trns', arc='em', trc='com')}}">commissioning</a></li>
-                  <li><a href="{{ url_for('idt', op_code='trns', arc='em', trc='mtc')}}">maintenance</a></li>
-                  <li><a href="{{ url_for('idt', op_code='trns', arc='em', trc='rdg')}}">meter_reading</a></li>
-                  <li><a href="{{ url_for('idt', op_code='trns', arc='em', trc='aud')}}">meter_audit</a></li>
+                  <div class="ml3">
+                    <div>
+                      <li><a href="{{ url_for('idt', ml1='trns', ml2='em', ml3='12grv')}}">goods receiving</a></li>
+                      <li><a href="{{ url_for('idt', ml1='trns', ml2='em', ml3='21ret')}}">good return</a></li>
+                      <li><a href="{{ url_for('idt', ml1='trns', ml2='em', ml3='23alc')}}">allocated</a></li>
+                      <li><a href="{{ url_for('idt', ml1='trns', ml2='em', ml3='26rdg')}}">missing in stores</a></li>
+                      <li><a href="{{ url_for('idt', ml1='trns', ml2='em', ml3='27rtd')}}">retired</a></li>
+                      <li><a href="{{ url_for('idt', ml1='trns', ml2='em', ml3='32una')}}">unallocated</a></li>
+                      <li><a href="{{ url_for('idt', ml1='trns', ml2='em', ml3='34ins')}}">installation</a></li>
+                      <li><a href="{{ url_for('idt', ml1='trns', ml2='em', ml3='38rep')}}">repairs</a></li>
+                      <li><a href="{{ url_for('idt', ml1='trns', ml2='em', ml3='26nis')}}">missing in allocated</a></li>
+                      <li><a href="{{ url_for('idt', ml1='trns', ml2='em', ml3='44com')}}">commissioning</a></li>
+                      <li><a href="{{ url_for('idt', ml1='trns', ml2='em', ml3='46mis')}}">missing in field</a></li>
+                      <li><a href="{{ url_for('idt', ml1='trns', ml2='em', ml3='5iins')}}">inspection</a></li>
+                      <li><a href="{{ url_for('idt', ml1='trns', ml2='em', ml3='5rrea')}}">reading</a></li>
+                    </div>
+                    <div>
+                      <li><a href="{{ url_for('idt', ml1='trns', ml2='em', ml3='5ppur')}}">purchase</a></li>
+                      <li><a href="{{ url_for('idt', ml1='trns', ml2='em', ml3='53uni')}}">operation uninstall</a></li>
+                      <li><a href="{{ url_for('idt', ml1='trns', ml2='em', ml3='56mis')}}">missing in operation</a></li>
+                      <li><a href="{{ url_for('idt', ml1='trns', ml2='em', ml3='5mmai')}}">maintenance</a></li>
+                      <li><a href="{{ url_for('idt', ml1='trns', ml2='em', ml3='5ffwn')}}">final warning</a></li>
+                      <li><a href="{{ url_for('idt', ml1='trns', ml2='em', ml3='5ddcn')}}">disconnection</a></li>
+                      <li><a href="{{ url_for('idt', ml1='trns', ml2='em', ml3='5rrcn')}}">reconnection</a></li>
+                      <li><a href="{{ url_for('idt', ml1='trns', ml2='em', ml3='5lala')}}">meter alarm</a></li>
+                      <li><a href="{{ url_for('idt', ml1='trns', ml2='em', ml3='62rec')}}">recovered</a></li>
+                      <li><a href="{{ url_for('idt', ml1='trns', ml2='em', ml3='72bac')}}">back to service</a></li>
+                      <li><a href="{{ url_for('idt', ml1='trns', ml2='em', ml3='76mis')}}">missing in retired</a></li>
+                      <li><a href="{{ url_for('idt', ml1='trns', ml2='em', ml3='83rep')}}">collected repairs</a></li>
+                      <li><a href="{{ url_for('idt', ml1='trns', ml2='em', ml3='86mis')}}">missing in repairs</a></li>
+                    </div>
+                  </div>
+
                   <!--fdr is fwn, dcn and rcn-->
-                  <li><a href="{{ url_for('idt', op_code='trns', arc='em', trc='fdr')}}">credit control</a></li>
+                  <!--<li><a href="{{ url_for('idt', ml1='trns', ml2='em', ml3='fdr')}}">credit control</a></li>-->
                 </ul>
               </li>
-              <li><a href="{{ url_for('idt', op_code='trns', arc='pl', trc=' ')}}">pole</a><span class="rarrow">&#9656</span>
+              <li><a href="{{ url_for('idt', ml1='trns', ml2='pl', ml3=' ')}}">pole</a><span class="rarrow">&#9656</span>
                 <ul class="sub2">
-                  <li><a href="{{ url_for('idt', op_code='trns', arc='pl', trc='ins')}}">installation</a></li>
-                  <li><a href="{{ url_for('idt', op_code='trns', arc='pl', trc='com')}}">commissioning</a></li>
-                  <li><a href="{{ url_for('idt', op_code='trns', arc='pl', trc='mtc')}}">maintenance</a></li>
+                  <li><a href="{{ url_for('idt', ml1='trns', ml2='pl', ml3='ins')}}">installation</a></li>
+                  <li><a href="{{ url_for('idt', ml1='trns', ml2='pl', ml3='com')}}">commissioning</a></li>
+                  <li><a href="{{ url_for('idt', ml1='trns', ml2='pl', ml3='mtc')}}">maintenance</a></li>
                 </ul>
               </li>
-              <li><a href="{{ url_for('idt', op_code='trns', arc='tr', trc=' ')}}">transformer</a><span class="rarrow">&#9656</span>
+              <li><a href="{{ url_for('idt', ml1='trns', ml2='tr', ml3=' ')}}">transformer</a><span class="rarrow">&#9656</span>
                 <ul class="sub2">
-                  <li><a href="{{ url_for('idt', op_code='trns', arc='tr', trc='ins')}}">installation</a></li>
-                  <li><a href="{{ url_for('idt', op_code='trns', arc='tr', trc='com')}}">commissioning</a></li>
-                  <li><a href="{{ url_for('idt', op_code='trns', arc='tr', trc='mtc')}}">maintenance</a></li>
-                </ul>
-              </li>
-            
-              <li><a href="{{ url_for('idt', op_code='trns', arc='cl', trc=' ')}}">cables</a><span class="rarrow">&#9656</span>
-                <ul class="sub2">
-                  <li><a href="{{ url_for('idt', op_code='trns', arc='cl', trc='ins')}}">installation</a></li>
-                  <li><a href="{{ url_for('idt', op_code='trns', arc='cl', trc='com')}}">commissioning</a></li>
-                  <li><a href="{{ url_for('idt', op_code='trns', arc='cl', trc='mtc')}}">maintenance</a></li>
+                  <li><a href="{{ url_for('idt', ml1='trns', ml2='tr', ml3='ins')}}">installation</a></li>
+                  <li><a href="{{ url_for('idt', ml1='trns', ml2='tr', ml3='com')}}">commissioning</a></li>
+                  <li><a href="{{ url_for('idt', ml1='trns', ml2='tr', ml3='mtc')}}">maintenance</a></li>
                 </ul>
               </li>
             
-              <li><a href="{{ url_for('idt', op_code='trns', arc='cb', trc=' ')}}">circuit breakers</a><span class="rarrow">&#9656</span>
+              <li><a href="{{ url_for('idt', ml1='trns', ml2='cl', ml3=' ')}}">cables</a><span class="rarrow">&#9656</span>
                 <ul class="sub2">
-                  <li><a href="{{ url_for('idt', op_code='trns', arc='cb', trc='ins')}}">installation</a></li>
-                  <li><a href="{{ url_for('idt', op_code='trns', arc='cb', trc='com')}}">commissioning</a></li>
-                  <li><a href="{{ url_for('idt', op_code='trns', arc='cb', trc='mtc')}}">maintenance</a></li>
+                  <li><a href="{{ url_for('idt', ml1='trns', ml2='cl', ml3='ins')}}">installation</a></li>
+                  <li><a href="{{ url_for('idt', ml1='trns', ml2='cl', ml3='com')}}">commissioning</a></li>
+                  <li><a href="{{ url_for('idt', ml1='trns', ml2='cl', ml3='mtc')}}">maintenance</a></li>
+                </ul>
+              </li>
+            
+              <li><a href="{{ url_for('idt', ml1='trns', ml2='cb', ml3=' ')}}">circuit breakers</a><span class="rarrow">&#9656</span>
+                <ul class="sub2">
+                  <li><a href="{{ url_for('idt', ml1='trns', ml2='cb', ml3='ins')}}">installation</a></li>
+                  <li><a href="{{ url_for('idt', ml1='trns', ml2='cb', ml3='com')}}">commissioning</a></li>
+                  <li><a href="{{ url_for('idt', ml1='trns', ml2='cb', ml3='mtc')}}">maintenance</a></li>
                 </ul>
               </li>
             
@@ -105,7 +133,7 @@
       </ul>
 
       <ul class="mm mmr">
-        <li><a href = "{{ url_for('knowledge_base')}}">knowledge base</a></li>
+        <li><a href = "{{ url_for('knb')}}">knowledge base</a></li>
 
         {% if current_user.is_authenticated %}
           <li><a href = "#">admin</a><span class="darrow">&#9660</span>
@@ -113,19 +141,19 @@
               <li><a href="#">system tables</a><span class="rarrow">&#9656</span>
                 <ul class="sub2">
                   <!--transaction names-->
-                  <li><a href="{{ url_for('idt', op_code='admin', arc='syst', trc='trnn')}}">trn names</a> </li>
+                  <li><a href="{{ url_for('idt', ml1='admin', ml2='syst', ml3='trnn')}}">trn names</a> </li>
                   <!--transaction states-->
-                  <li><a href="{{ url_for('idt', op_code='admin', arc='syst', trc='trst')}}">trn states</a> </li>
+                  <li><a href="{{ url_for('idt', ml1='admin', ml2='syst', ml3='trst')}}">trn states</a> </li>
                   <!--asset category-->
-                  <li><a href="{{ url_for('idt', op_code='admin', arc='syst', trc='arcs')}}">asset categories</a> </li>
+                  <li><a href="{{ url_for('idt', ml1='admin', ml2='syst', ml3='ml2s')}}">asset categories</a> </li>
                 </ul>
               </li>
-              <li><a href="{{ url_for('idt', op_code='admin', arc='unps', trc=' ')}}">users</a></li>
-              <li><a href="{{ url_for('idt', op_code='admin', arc='cast', trc=' ')}}">cadastral</a></li>
-              <li><a href="{{ url_for('idt', op_code='admin', arc='mdev', trc=' ')}}">mobile devices</a></li>
-              <li><a href="{{ url_for('idt', op_code='admin', arc='simc', trc=' ')}}">simcards</a></li>
-              <li><a href="{{ url_for('idt', op_code='admin', arc='unpr', trc=' ')}}">user roles</a></li>
-              <li><a href="{{ url_for('idt', op_code='admin', arc='unpp', trc=' ')}}">permissions</a></li>
+              <li><a href="{{ url_for('idt', ml1='admin', ml2='unps', ml3=' ')}}">users</a></li>
+              <li><a href="{{ url_for('idt', ml1='admin', ml2='cast', ml3=' ')}}">cadastral</a></li>
+              <li><a href="{{ url_for('idt', ml1='admin', ml2='mdev', ml3=' ')}}">mobile devices</a></li>
+              <li><a href="{{ url_for('idt', ml1='admin', ml2='simc', ml3=' ')}}">simcards</a></li>
+              <li><a href="{{ url_for('idt', ml1='admin', ml2='unpr', ml3=' ')}}">user roles</a></li>
+              <li><a href="{{ url_for('idt', ml1='admin', ml2='unpp', ml3=' ')}}">permissions</a></li>
             </ul>
           </li>
         {% else %}
@@ -142,7 +170,8 @@
         {% if current_user.is_authenticated %}
         <ul class="sub1">
           <li><a href = "{{ url_for('unp_signout') }}">sign out</a>
-          <li><a href = "{{ url_for('unp_profile') }}">profile</a></li>
+          <li><a href = "{{ url_for('unp', ml1='unp', ml2='profile') }}">profile</a></li>
+          
         </ul>
         {% endif %}
       </ul>
@@ -156,7 +185,7 @@
     <!--page menu (pgm)-->
     <div id="page_menu_div" class="page_menu_div">
 
-      <!--page menu left-->
+      <!--page menu `left-->
       <div id="pml" class="pml">
         
         <!--unp unp_pml_btn_title-->
@@ -185,22 +214,8 @@
         
         <!--unp unp_pml_btn_edit-->
         <div>
-          <button id="pgm_edit" class="unp_menu_btn" title="edit profile">
-            <i class="fas fa-edit unp_fa_icon"></i>
-          </button>
-        </div>
-
-        <!--unp unp_pml_btn_cancel-->
-        <div>
-          <button id="pgm_cancel" class="unp_menu_btn" title="cancel">
-            <i class="fas fa-window-close unp_fa_icon"></i>
-          </button>
-        </div>
-
-        <!--unp unp_pml_btn_save-->
-        <div>
-          <button id="pgm_save" class="unp_menu_btn" title="save">
-            <i class="fas fa-save unp_fa_icon"></i>
+          <button id="pgm_view" class="unp_menu_btn" title="view data on the selected row">
+            <i class="fas fa-binoculars unp_fa_icon"></i>
           </button>
         </div>
         
@@ -382,16 +397,16 @@
       <script src="{{ url_for('static', filename='scripts/ireps.js') }}" ></script>
     
       <!-- datatables JS -->
-      <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+      <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
   
       <script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
       <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
   
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-      <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>-->
-      <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
       <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
-      <script src="https://cdn.datatables.net/select/1.3.0/js/dataTables.select.min.js"></script>
+      <script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
   
       <script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>

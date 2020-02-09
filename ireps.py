@@ -152,7 +152,7 @@ class UnpSignInForm(FlaskForm):
 
 #**********************************************************************************************************************#
 #                                                                                                                      #
-# START                                              unp                                                               #
+# START                                              unp signup and signin urls                                        #
 #                                                                                                                      #
 #**********************************************************************************************************************#
 
@@ -303,7 +303,7 @@ def unp_signin():
                     # TODO : fix the redirect problem. at the moment it redirect only to mn_ireps irrespective.
                     #  It should redirect to next page
                     flash(f'user successfully logged in', 'success')
-                    return redirect(request.args.get('next') or url_for('unp_profile'))
+                    return redirect(request.args.get('next') or url_for('unp', ml1='unp', ml2='profile'))
                 else:
                     flash(f'could not logon, either email adr incorrect or not exist, or password mismatch, '
                           f'try again', 'danger')
@@ -374,36 +374,6 @@ def unp_pwd_reset(email):
     return render_template("unp_pwd_reset_form.html", form=form)
 
 
-@app.route("/unp_boqs")
-def unp_boqs():
-    return render_template("unp_boqs.html")
-
-
-@app.route("/unp_emails")
-def unp_emails():
-    return render_template("unp_emails.html")
-
-
-@app.route("/unp_logon_history")
-def unp_logon_history():
-    return render_template("unp_logon_history.html")
-
-
-@app.route("/unp_profile")
-def unp_profile():
-    return render_template("unp_profile.html")
-
-
-@app.route("/unp_smss")
-def unp_smss():
-    return render_template("unp_smss.html")
-
-
-@app.route("/unp_stats")
-def unp_stats():
-    return render_template("unp_stats.html")
-
-
 @login_manager.user_loader
 def load_user(unp_a01_id):
     return UsersNaturalPerson.query.get(int(unp_a01_id))
@@ -421,6 +391,35 @@ def unp_signout():
     logout_user()
     return redirect(url_for('index'))
 
+#**********************************************************************************************************************#
+#                                                                                                                      #
+# END                                                unp signup and signin urls                                        #
+#                                                                                                                      #
+#**********************************************************************************************************************#
+
+
+@app.route("/<ml1>/<ml2>")
+@login_required
+def unp(ml1, ml2):
+
+    if ml1 == 'unp' and ml2 == 'profile':
+        return render_template("unp_profile.html")
+
+    if ml1 == 'unp' and ml2 == 'stats':
+        return render_template("unp_stats.html")
+
+    if ml1 == 'unp' and ml2 == 'boqs':
+        return render_template("unp_boqs.html")
+
+    if ml1 == 'unp' and ml2 == 'logon_history':
+        return render_template("unp_logon_history.html")
+
+    if ml1 == 'unp' and ml2 == 'smss':
+        return render_template("unp_smss.html")
+
+    if ml1 == 'unp' and ml2 == 'emails':
+        return render_template("unp_email.html")
+
 
 #**********************************************************************************************************************#
 #                                                                                                                      #
@@ -429,13 +428,15 @@ def unp_signout():
 #**********************************************************************************************************************#
 
 # idt is ireps datatable,
-# op_code is either assets(asts) or transactions(trns),
-# arc is asset (register) category
-# trc is transaction code
-@app.route("/idt/<op_code>/<arc>/<trc>")
+# ml1 is menu level 1,
+# ml2 is menu level 2
+# ml3 is menu level 3
+
+@app.route("/<ml1>/<ml2>/<ml3>")
 @login_required
-def idt(op_code='', arc='', trc=''):
-    return render_template("idt.html", op_code=op_code, arc=arc, trc=trc)
+def idt(ml1='', ml2='', ml3=''):
+    return render_template("idt.html", ml1=ml1, ml2=ml2, ml3=ml3)
+
 
 #**********************************************************************************************************************#
 #                                                                                                                      #
@@ -452,9 +453,9 @@ def idt(op_code='', arc='', trc=''):
 #**********************************************************************************************************************#
 
 
-@app.route("/knowledge_base")
-def knowledge_base():
-    return render_template("knowledge_base.html")
+@app.route("/knb") #knowledgebase
+def knb():
+    return render_template("knb.html")
 
 #**********************************************************************************************************************#
 #                                                                                                                      #
@@ -471,6 +472,12 @@ def knowledge_base():
 # START                                                dbd                                                             #
 #                                                                                                                      #
 #**********************************************************************************************************************#
+
+
+@app.route("/dbd")
+@login_required
+def dbd():
+    return render_template("dbd.html", )
 
 
 @app.route("/dbd_asts")
